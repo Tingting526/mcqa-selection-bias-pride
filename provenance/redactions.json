@@ -1,0 +1,104 @@
+{
+ "rules": [
+  "<lrz-user>@login.ai.lrz.de",
+  "/dss/dsshome1/<group>/<lrz-user>",
+  "<lrz-project>",
+  "<local-attachment>",
+  "<project-root>",
+  "<lrz-user>",
+  "<local-user>",
+  "revision_<timestamp> (shortened directory names of editorial revision logs)"
+ ],
+ "redacted_files": [
+  {
+   "path": "analysis/scripts/fetch_medqa_results.sh",
+   "replacements": 2,
+   "executed_sha256": "b844df9be316640c147c3876208e8261df05a29b4f2e15fa4a146b732471d12f",
+   "published_sha256": "a61b7f72222453d9f50b4c66f81632d64d4e66ad9838a9163f45e78e73d91c4d"
+  },
+  {
+   "path": "analysis/scripts/finalize_phase6_validation.py",
+   "replacements": 1,
+   "executed_sha256": "11019e5c2b377ee4e047eca63b62c5d5f8b5cf73606a1355fcebe5bc59d13e85",
+   "published_sha256": "71a0220bb13ecb1417ff84c733048910a8c62e552a8d9596ad51423ab489af76"
+  },
+  {
+   "path": "analysis/scripts/recover_phase3b_evidence.py",
+   "replacements": 2,
+   "executed_sha256": "8674206b818ed8eb633224bc6662d8c03f187db38c3510c0214076eb2c046c78",
+   "published_sha256": "89277c28511222886804512ca6cb8e3542059d5fc690f8b00084fa68ccdd59ca"
+  },
+  {
+   "path": "analysis/scripts/analyze_phase3b_offline.py",
+   "replacements": 2,
+   "executed_sha256": "a32a231d77a691112f56af22ff72abbf9c0d3d40bc778dcf78434b3022bf058f",
+   "published_sha256": "c2a4d0fcbf0af108d7d8d19b61cb4e5950b6968014926b043c8fbbaeb20d065e"
+  },
+  {
+   "path": "analysis/scripts/finalize_phase7_delivery.py",
+   "replacements": 1,
+   "executed_sha256": "b3ef062942642899b0d0f923463259092fd4fa3f8901a6e1db7b145edeaf4bcf",
+   "published_sha256": "fad1962eec62adc836ab2470748b1eebc5d875de2d56f2a921252bedcc7d9a7e"
+  },
+  {
+   "path": "analysis/scripts/export_phase3b_tables.mjs",
+   "replacements": 1,
+   "executed_sha256": "20f984e63705dde5f47ed9c0e1b19be056281595548df5b8a6ef82bf347352bd",
+   "published_sha256": "877c68151b10fa5c6cf7e37eb8816e70eb359627e59d4498ebc5865aa5cb4a0c"
+  },
+  {
+   "path": "analysis/scripts/slurm/environment.sh",
+   "replacements": 1,
+   "executed_sha256": "bbb333ab3341da25f8a487b9da4f2c21d6566030ac1330051f50b0de82007231",
+   "published_sha256": "7476e04d8654f130143cb81367ed7066622623074d221ccc8775a4633221f504"
+  },
+  {
+   "path": "analysis/scripts/slurm/README.md",
+   "replacements": 17,
+   "executed_sha256": "a920788c7b59dfc29036cfe39e5cede22ea69b9ef9bd34b7ccabc5e3532356ef",
+   "published_sha256": "f3544eaaf06f7496f1b0f7b8490345a016aa589f71b0f872d7bfa572cd825e1b"
+  },
+  {
+   "path": "analysis/scripts/slurm/thesis_mistral_a100.sbatch",
+   "replacements": 1,
+   "executed_sha256": "3c8f54a4b30e1f2e4f554252630329a3dee46e1f1fd0d2f5380131f4e9434182",
+   "published_sha256": "95dfde361a050be8f26bfba74f0e52baefe452ae86aab890f7cfff31ef383d7e"
+  },
+  {
+   "path": "analysis/scripts/slurm/thesis_sensitivity.sbatch",
+   "replacements": 1,
+   "executed_sha256": "429531eab9d3eed92496a39ad83d84bffdfb51d414132d6c86759f1e190dc9f1",
+   "published_sha256": "27111202e109414b02bab6e735835fbcaa8427b03e4a9e00a1bc0b7d6fd93687"
+  },
+  {
+   "path": "analysis/outputs/phase3b_20261018/verified/analysis_results.json",
+   "replacements": 1195,
+   "executed_sha256": "4cfaa84a6975ba5641351431916a535b7c34c889dc4cf90053be15a79d2af91a",
+   "published_sha256": "b5348eb5bb33cb93557353cc0dcb03204bab6a8535313d461d15502013be2c58"
+  },
+  {
+   "path": "analysis/outputs/phase3b_20261018/verified/tables/rq1_reproduction.csv",
+   "replacements": 36,
+   "executed_sha256": "b84cf70c4386d59fe2bde3682adb805ddc819811e315c928af6226b02149cee5",
+   "published_sha256": "d1ece7eafd22141f1aaba11b3437222f27f63d9aca6566ea5237a8dce510c662"
+  },
+  {
+   "path": "analysis/outputs/phase4_20261018_20261018T091030Z/statistics_results.json",
+   "replacements": 67,
+   "executed_sha256": "2daa6ec4b420d7741e0010b4e83e0c32c033a3d7c68a697487c95e508f33c283",
+   "published_sha256": "2e02fd29d0de1f982f022c955012e4908a93e9a7a34b4cbae1f707e8385a6608"
+  },
+  {
+   "path": "Paper/figures/chapter5_data/plot_data.json",
+   "replacements": 60,
+   "executed_sha256": "33befd72f5b5e3178c117c8e15904234624edf64b4386b986f550142c5e5bfac",
+   "published_sha256": "1f2b53ad664d1a568c6567276024682fc3d079c92d0ce173f503f465bf1855fe"
+  },
+  {
+   "path": "analysis/scripts/finalize_thesis_tables.py",
+   "replacements": 1,
+   "executed_sha256": "479c88f12d89fcf8435d5158fb84e07310cda59bdb9006343e1c200319407a01",
+   "published_sha256": "5842f158de97a79adf14086bb4a162b2b98d8c110fa17cd9efc74f60e6ff36b2"
+  }
+ ]
+}

@@ -1,0 +1,284 @@
+[
+ {
+  "stage": "before_structural",
+  "file": "permutation_metrics.tex",
+  "old": "\\caption{Uncorrected complete-cycle diagnostics under the raw zero-shot protocol. Mean accuracy and content consistency (C) are percentages; accuracy SD/range and cyclic RStd are pp. Each benchmark uses its retained $N$ from Table~\\ref{tab:populations}; $K=5$ for CommonsenseQA and 4 otherwise.}\\label{tab:permutation-metrics}\\\\\n",
+  "new": "\\caption{Uncorrected complete-cycle diagnostics under the raw zero-shot protocol. Mean accuracy and semantic consistency (C) are percentages; accuracy SD/range and cyclic RStd are pp. Each benchmark uses its retained $N$ from Table~\\ref{tab:populations}; $K=5$ for CommonsenseQA and 4 otherwise.}\\label{tab:permutation-metrics}\\\\\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "results_arc.tex",
+  "old": "\\caption{ARC-Challenge ($N=1,165$), raw-text zero-shot scoring after debiasing. A is accuracy (\\%), R original RStd (pp). PriDe (5\\%) is the five-draw mean full-population endpoint defined in Section~\\ref{sec:pride-indomain}.}\n",
+  "new": "\\caption{ARC-Challenge accuracy (A, \\%) and original RStd (R, pp) after CPA and PriDe (5\\%). Both methods use all 1,165 retained questions.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "results_csqa.tex",
+  "old": "\\caption{CommonsenseQA ($N=1,216$), raw-text zero-shot scoring after debiasing. A is accuracy (\\%), R original RStd (pp). PriDe (5\\%) is the five-draw mean full-population endpoint defined in Section~\\ref{sec:pride-indomain}.}\n",
+  "new": "\\caption{CommonsenseQA accuracy (A, \\%) and original RStd (R, pp) after CPA and PriDe (5\\%). Both methods use all 1,216 retained questions.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "results_mmlu.tex",
+  "old": "\\caption{MMLU ($N=13,592$), raw-text zero-shot scoring after debiasing. A is accuracy (\\%), R original RStd (pp). PriDe (5\\%) is the five-draw mean full-population endpoint defined in Section~\\ref{sec:pride-indomain}.}\n",
+  "new": "\\caption{MMLU accuracy (A, \\%) and original RStd (R, pp) after CPA and PriDe (5\\%). Both methods use all 13,592 retained questions.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "robustness_appendix.tex",
+  "old": "In Tables~\\ref{tab:corrected-mmlu}--\\ref{tab:corrected-medmcqa}, $A_0$ is original-order accuracy, $R_0$ original RStd, $R_{\\rm cyc}$ cyclic RStd, $\\bar A$ mean per-shift accuracy, and $S$ and range describe per-shift accuracy. $C$ is all-shift content consistency. Rows $D$ and $P$ use identical heldout questions; $P$ is pure frozen-prior PriDe, not the full-population hybrid. Accuracy/consistency are percent and all dispersion quantities are pp. All models retain the previously declared first-maximum and additive-epsilon conventions. CPA is not a per-shift accuracy average; its deterministic complete-orbit invariance is an aggregation property.\n",
+  "new": "In Tables~\\ref{tab:corrected-mmlu}--\\ref{tab:corrected-medmcqa}, $A_0$ is original-order accuracy, $R_0$ original RStd, $R_{\\rm cyc}$ cyclic RStd, $\\bar A$ mean per-shift accuracy, and $S$ and range describe per-shift accuracy. $C$ is all-shift semantic consistency. Rows $D$ and $P$ use identical heldout questions; $P$ is pure frozen-prior PriDe, not the full-population hybrid. Accuracy/consistency are percent and all dispersion quantities are pp. All models retain the previously declared first-maximum and additive-epsilon conventions. CPA is not a per-shift accuracy average; its deterministic complete-orbit invariance is an aggregation property.\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "rq1_default_overview.tex",
+  "old": "\\caption{Uncorrected Default results for the six models under raw-text zero-shot scoring. A is accuracy (\\%) and R original RStd (pp). Retained populations: MMLU $N=13,592$, ARC-Challenge $N=1,165$, CommonsenseQA $N=1,216$.}\n",
+  "new": "\\caption{Default accuracy (A, \\%) and original RStd (R, pp) for the six models under raw-text zero-shot scoring. Retained populations are given in Table~\\ref{tab:populations}.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "rq1_default_panel_comparison.tex",
+  "old": "\\caption{Default panel summaries before correction. A is unweighted mean accuracy (\\%); R is original RStd (pp). Zheng: all twenty model rows in Table~3, p.~22 \\citep{zheng2024robust}; Current: all six verified models. Original means use the published one-decimal cells; current means use unrounded endpoints.}\n",
+  "new": "\\caption{Default panel summaries before debiasing. A is unweighted mean accuracy (\\%) and R is original RStd (pp). Zheng uses all twenty published model rows \\citep[Table~3, p.~22]{zheng2024robust}, and Current uses all six verified models. Original means use published one-decimal cells, while current means use unrounded endpoints.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "rq1_zheng_comparison.tex",
+  "old": "\\caption{Absolute post-debiasing means and changes from Default. A is accuracy (\\%); R is original RStd (pp); both $\\Delta$ columns are pp. Models receive equal weight. Zheng means use published rounded model cells \\citep[Table~3, p.~22]{zheng2024robust}; Appendix~\\ref{app:rq1-published-changes} retains the separately reported $\\Delta$ Average values.}\n",
+  "new": "\\caption{Absolute post-debiasing means and changes from Default. A is accuracy (\\%) and R is original RStd (pp), with both $\\Delta$ columns in pp. Models receive equal weight. Zheng means use published rounded model cells \\citep[Table~3, p.~22]{zheng2024robust}. Table~\\ref{tab:rq1-published-changes} retains the separately reported $\\Delta$ Average values.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "strengthening_arc.tex",
+  "old": "\\caption{ARC-Challenge on the same 1,165 questions: four cyclic orderings (4) versus all 24 orderings (24). C is content consistency (\\%), range is the accuracy range (pp), and A is accuracy after probability averaging (\\%). Agreement across 24 orderings is a stricter criterion. Mistral has only four cached orderings.}\n",
+  "new": "\\caption{ARC-Challenge on the same 1,165 questions: four cyclic orderings (4) versus all 24 orderings (24). C is semantic consistency (\\%), range is the accuracy range (pp), and A is accuracy after probability averaging (\\%). Agreement across 24 orderings is a stricter criterion. Mistral has only four cached orderings.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "strengthening_native_chat.tex",
+  "old": "\\caption{Native-template medical scoring on the same 1,273 MedQA and 3,941 MedMCQA questions. A and C are native Default accuracy and content consistency (\\%); $\\Delta$ is native minus raw (pp). R is native cyclic RStd (pp). The last columns give hybrid PriDe minus Default accuracy under raw (H$_r$) and native (H$_n$) input, after fitting each condition on identical calibration IDs. Qwen3 uses its non-thinking template. These remain first-token scores.}\n",
+  "new": "\\caption{Native-template medical scoring on the same 1,273 MedQA and 3,941 MedMCQA questions. A and C are native Default accuracy and semantic consistency (\\%); $\\Delta$ is native minus raw (pp). R is native cyclic RStd (pp). The last columns give hybrid PriDe minus Default accuracy under raw (H$_r$) and native (H$_n$) input, after fitting each condition on identical calibration IDs. Qwen3 uses its non-thinking template. These remain first-token scores.}\n"
+ },
+ {
+  "stage": "before_structural",
+  "file": "strengthening_subgroups.tex",
+  "old": "\\caption{MedMCQA by released choice type: single (S, $N=2,801$) and multi (M, $N=1,140$). C is uncorrected content consistency (\\%); $\\Delta A$ is five-draw hybrid PriDe minus Default accuracy (pp); R is cyclic RStd (pp). Predictions use the original benchmark-wide calibration draws, with no subgroup prior fitting.}\n",
+  "new": "\\caption{MedMCQA by released choice type: single (S, $N=2,801$) and multi (M, $N=1,140$). C is uncorrected semantic consistency (\\%); $\\Delta A$ is five-draw hybrid PriDe minus Default accuracy (pp); R is cyclic RStd (pp). Predictions use the original benchmark-wide calibration draws, with no subgroup prior fitting.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "calibration_variability.tex",
+  "old": "\\caption{Hybrid PriDe variability over five path-seeded calibration draws of fixed raw scores. SD uses ddof=0 and is in pp; accuracy extrema are percentages, RStd extrema pp. These are not confidence intervals.}\\label{tab:calibration-variability}\\\\\n",
+  "new": "\\caption{PriDe (5\\%) variability over five path-seeded calibration draws of fixed raw scores. SD uses ddof=0 and is in pp. Accuracy extrema are percentages, and RStd extrema are in pp. }\\label{tab:calibration-variability}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "intervals_medmcqa.tex",
+  "old": "\\caption{MedMCQA $\\rightarrow$ MedQA paired accuracy differences (pp) and pointwise 95\\% percentile intervals, $n=1,210$ target questions. I: in-domain, T: transfer, D: Default. 1,000 shared question-bootstrap draws, seed 20261018, fixed fitted priors; no prior-refit uncertainty or simultaneous-coverage adjustment.}\n",
+  "new": "\\caption{MedMCQA $\\rightarrow$ MedQA paired accuracy differences (pp) and pointwise 95\\% percentile intervals, $n=1,210$ target questions. I: in-domain, T: transfer, D: Default. 1,000 shared question-bootstrap draws, seed 20261018, fixed fitted priors.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "intervals_medqa.tex",
+  "old": "\\caption{MedQA $\\rightarrow$ MedMCQA paired accuracy differences (pp) and pointwise 95\\% percentile intervals, $n=3,744$ target questions. I: in-domain, T: transfer, D: Default. 1,000 shared question-bootstrap draws, seed 20261018, fixed fitted priors; no prior-refit uncertainty or simultaneous-coverage adjustment.}\n",
+  "new": "\\caption{MedQA $\\rightarrow$ MedMCQA paired accuracy differences (pp) and pointwise 95\\% percentile intervals, $n=3,744$ target questions. I: in-domain, T: transfer, D: Default. 1,000 shared question-bootstrap draws, seed 20261018, fixed fitted priors.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "label_supports.tex",
+  "old": "\\caption{Original-order gold-label supports in the full retained populations. Supports are shared across models and methods on full $D$; RQ3 uses separately reported target-holdout supports.}\n",
+  "new": "\\caption{Original-order gold-label supports in the full retained populations. Supports are shared across models and methods on full $D$. RQ3 uses separately reported target-holdout supports.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "permutation_metrics.tex",
+  "old": "\\caption{Uncorrected complete-cycle diagnostics under the raw zero-shot protocol. Mean accuracy and semantic consistency (C) are percentages; accuracy SD/range and cyclic RStd are pp. Each benchmark uses its retained $N$ from Table~\\ref{tab:populations}; $K=5$ for CommonsenseQA and 4 otherwise.}\\label{tab:permutation-metrics}\\\\\n",
+  "new": "\\caption{Uncorrected complete-cycle diagnostics under the raw zero-shot protocol. Mean accuracy and semantic consistency (C) are percentages, whereas accuracy SD/range and cyclic RStd are in pp. Each benchmark uses its retained $N$ from Table~\\ref{tab:populations}, with $K=5$ for CommonsenseQA and 4 otherwise.}\\label{tab:permutation-metrics}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "results_medmcqa.tex",
+  "old": "\\caption{MedMCQA ($N=3,941$), raw-text zero-shot scoring. Accuracy (A) is percent and original RStd (R) is pp. All methods use full $D$; PriDe (5\\%) is the five-draw hybrid mean.}\n",
+  "new": "\\caption{MedMCQA ($N=3,941$), raw-text zero-shot scoring. Accuracy (A) is percent and original RStd (R) is pp. All methods use full $D$, and PriDe (5\\%) is the five-draw hybrid mean.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "results_medqa.tex",
+  "old": "\\caption{MedQA ($N=1,273$), raw-text zero-shot scoring. Accuracy (A) is percent and original RStd (R) is pp. All methods use full $D$; PriDe (5\\%) is the five-draw hybrid mean.}\n",
+  "new": "\\caption{MedQA ($N=1,273$), raw-text zero-shot scoring. Accuracy (A) is percent and original RStd (R) is pp. All methods use full $D$, and PriDe (5\\%) is the five-draw hybrid mean.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "results_reference_combined.tex",
+  "old": "\\caption{Reference-benchmark accuracy (A, \\%) and original RStd (R, pp). Each benchmark reports CPA and five-draw mean PriDe (5\\%) on its full retained population; Default appears in Table~\\ref{tab:rq1-default-overview}.}\n",
+  "new": "\\caption{Reference-benchmark accuracy (A, \\%) and original RStd (R, pp). Each benchmark reports CPA and five-draw mean PriDe (5\\%) on its full retained population. Default appears in Table~\\ref{tab:rq1-default-overview}.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "The following tables supplement the primary endpoints rather than replacing them. Model abbreviations follow Table~\\ref{tab:models}. $D$, $I$ and $T$ denote Default, In-domain PriDe and Transferred PriDe; CPA is written in full. Accuracy and semantic consistency are percentages; RStd, SD, range and contrasts are in pp. Values are displayed to two decimals, while all direction counts use unrounded quantities. Full-precision vectors, question IDs and multiplicities remain in the electronic artifacts.\n",
+  "new": "The following tables supplement the primary endpoints rather than replacing them. Model abbreviations follow Table~\\ref{tab:models}. $D$, $I$ and $T$ denote Default, In-domain PriDe and Transferred PriDe, while CPA is written in full. Accuracy and semantic consistency are percentages, whereas RStd, SD, range and contrasts are in pp. Values are displayed to two decimals, while all direction counts use unrounded quantities. Full-precision vectors, question IDs and multiplicities remain in the electronic artifacts.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "The primary seed-42 fitting pools contain 63 MedQA and 197 MedMCQA questions, with fixed target complements of 1,210 and 3,744. Equal source budgets use \\texttt{estimation\\_order[:63]} from the saved source partition. Thus the MedMCQA source subset is nested in its original randomized pool, with no target test question added. Target in-domain fits remain unchanged. The forward prior averages the same 63 MedQA questions; its averaging order differs from the sorted primary list only by floating-point accumulation (at most $2.8\\times10^{-16}$ per coordinate), with exactly identical predictions and endpoints. The reverse prior averages 63 rather than 197 MedMCQA questions.\n",
+  "new": "The primary seed-42 fitting pools contain 63 MedQA and 197 MedMCQA questions, with fixed target complements of 1,210 and 3,744. Equal source budgets use \\texttt{estimation\\_order[:63]} from the saved source partition. Thus the MedMCQA source subset is nested in its original randomized pool, with no target test question added. Target in-domain fits remain unchanged. The forward prior averages the same 63 MedQA questions. Its averaging order differs from the sorted primary list only by floating-point accumulation (at most $2.8\\times10^{-16}$ per coordinate), with exactly identical predictions and endpoints. The reverse prior averages 63 rather than 197 MedMCQA questions.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "For calibration-pool resampling, each benchmark and seed in $\\{42,43,44,45,46\\}$ initializes a separate Python \\texttt{random.Random(seed)} generator. Starting from sorted original fit IDs, it draws 63 or 197 indices using \\texttt{randrange(pool\\_size)} with replacement. Each selected question contributes its normalized geometric prior once per occurrence. Both priors are refitted; the same dataset-specific draw is reused across models and transfer directions. Repeated draws are not collapsed or deduplicated. The resulting unique counts range from 36 to 43 for MedQA and 121 to 126 for MedMCQA.\n",
+  "new": "For calibration-pool resampling, each benchmark and seed in $\\{42,43,44,45,46\\}$ initializes a separate Python \\texttt{random.Random(seed)} generator. Starting from sorted original fit IDs, it draws 63 or 197 indices using \\texttt{randrange(pool\\_size)} with replacement. Each selected question contributes its normalized geometric prior once per occurrence. Both priors are refitted, and the same dataset-specific draw is reused across models and transfer directions. Repeated draws are not collapsed or deduplicated. The resulting unique counts range from 36 to 43 for MedQA and 121 to 126 for MedMCQA.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "The original seed-42 primary fit is a reference only; the with-replacement seed-42 draw differs from it. A full-pool, without-replacement control at all five seeds reproduces all original prior arrays and all four methods\\textquotesingle{} accuracy/RStd endpoints exactly. Its zero variability follows from exhausting the available pool and is not evidence that calibration is generally stable. The informative condition measures variation conditional on one empirical fitting pool and a fixed test set. Its sample SD uses \\texttt{ddof=1}; it neither estimates uncertainty over all dataset splits nor replaces the primary paired question-bootstrap intervals.\n",
+  "new": "The original seed-42 primary fit is a reference only. The with-replacement seed-42 draw differs from it. A full-pool, without-replacement control at all five seeds reproduces all original prior arrays and all four methods\\textquotesingle{} accuracy/RStd endpoints exactly. Its zero variability follows from exhausting the available pool and is not evidence that calibration is generally stable. The informative condition measures variation conditional on one empirical fitting pool and a fixed test set. Its sample SD uses \\texttt{ddof=1}. It neither estimates uncertainty over all dataset splits nor replaces the primary paired question-bootstrap intervals.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedQA $\\to$ MedMCQA: calibration-pool resampling accuracy (percent). Contrasts are pp; the fixed target holdout has $N=3744$.}\\label{tab:pool-medqa-accuracy}\\\\\n",
+  "new": "\\caption{MedQA $\\to$ MedMCQA: calibration-pool resampling accuracy (percent). Contrasts are in pp, and the fixed target holdout has $N=3744$.}\\label{tab:pool-medqa-accuracy}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedQA $\\to$ MedMCQA: calibration-pool resampling original RStd (pp). Contrasts are pp; the fixed target holdout has $N=3744$.}\\label{tab:pool-medqa-rstd}\\\\\n",
+  "new": "\\caption{MedQA $\\to$ MedMCQA: calibration-pool resampling original RStd (pp). Contrasts are in pp, and the fixed target holdout has $N=3744$.}\\label{tab:pool-medqa-rstd}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedMCQA $\\to$ MedQA: equal-source-budget endpoints. Source fit $n=63$; target fit $n=63$; target holdout $N=1210$.}\\label{tab:eq-endpoints-medmcqa}\n",
+  "new": "\\caption{MedMCQA $\\to$ MedQA: equal-source-budget endpoints. Source fit: $n=63$. Target fit: $n=63$. Target holdout: $N=1210$.}\\label{tab:eq-endpoints-medmcqa}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\par\\vspace{3pt}\\begin{minipage}{.98\\linewidth}\\footnotesize Accuracy $A$ is in percent; $R$ is original RStd in pp. The Default, in-domain and CPA endpoints are unchanged from the primary paired target comparison.\\end{minipage}\n",
+  "new": "\\par\\vspace{3pt}\\begin{minipage}{.98\\linewidth}\\footnotesize Accuracy $A$ is in percent, and $R$ is original RStd in pp. The Default, in-domain and CPA endpoints are unchanged from the primary paired target comparison.\\end{minipage}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedMCQA $\\to$ MedQA: calibration-pool resampling accuracy (percent). Contrasts are pp; the fixed target holdout has $N=1210$.}\\label{tab:pool-medmcqa-accuracy}\\\\\n",
+  "new": "\\caption{MedMCQA $\\to$ MedQA: calibration-pool resampling accuracy (percent). Contrasts are in pp, and the fixed target holdout has $N=1210$.}\\label{tab:pool-medmcqa-accuracy}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedMCQA $\\to$ MedQA: calibration-pool resampling original RStd (pp). Contrasts are pp; the fixed target holdout has $N=1210$.}\\label{tab:pool-medmcqa-rstd}\\\\\n",
+  "new": "\\caption{MedMCQA $\\to$ MedQA: calibration-pool resampling original RStd (pp). Contrasts are in pp, and the fixed target holdout has $N=1210$.}\\label{tab:pool-medmcqa-rstd}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "In Tables~\\ref{tab:corrected-mmlu}--\\ref{tab:corrected-medmcqa}, $A_0$ is original-order accuracy, $R_0$ original RStd, $R_{\\rm cyc}$ cyclic RStd, $\\bar A$ mean per-shift accuracy, and $S$ and range describe per-shift accuracy. $C$ is all-shift semantic consistency. Rows $D$ and $P$ use identical heldout questions; $P$ is pure frozen-prior PriDe, not the full-population hybrid. Accuracy/consistency are percent and all dispersion quantities are pp. All models retain the previously declared first-maximum and additive-epsilon conventions. CPA is not a per-shift accuracy average; its deterministic complete-orbit invariance is an aggregation property.\n",
+  "new": "In Tables~\\ref{tab:corrected-mmlu}--\\ref{tab:corrected-medmcqa}, $A_0$ is original-order accuracy, $R_0$ original RStd, $R_{\\rm cyc}$ cyclic RStd, $\\bar A$ mean per-shift accuracy, and $S$ and range describe per-shift accuracy. $C$ is all-shift semantic consistency. Rows $D$ and $P$ use identical holdout questions. Row $P$ is pure frozen-prior PriDe, not the full-population hybrid. Accuracy/consistency are percent and all dispersion quantities are pp. All models retain the previously declared first-maximum and additive-epsilon conventions. CPA is not a per-shift accuracy average, and its deterministic complete-orbit invariance is an aggregation property.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MMLU: complete heldout before/after cyclic metrics. Calibration $n=679$; evaluation $N=12913$.}\\label{tab:corrected-mmlu}\n",
+  "new": "\\caption{MMLU: complete heldout before/after cyclic metrics. Calibration: $n=679$. Evaluation: $N=12913$.}\\label{tab:corrected-mmlu}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{ARC-C: complete heldout before/after cyclic metrics. Calibration $n=58$; evaluation $N=1107$.}\\label{tab:corrected-arc}\n",
+  "new": "\\caption{ARC-C: complete heldout before/after cyclic metrics. Calibration: $n=58$. Evaluation: $N=1107$.}\\label{tab:corrected-arc}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{CSQA: complete heldout before/after cyclic metrics. Calibration $n=60$; evaluation $N=1156$.}\\label{tab:corrected-csqa}\n",
+  "new": "\\caption{CSQA: complete heldout before/after cyclic metrics. Calibration: $n=60$. Evaluation: $N=1156$.}\\label{tab:corrected-csqa}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedQA: complete heldout before/after cyclic metrics. Calibration $n=63$; evaluation $N=1210$.}\\label{tab:corrected-medqa}\n",
+  "new": "\\caption{MedQA: complete heldout before/after cyclic metrics. Calibration: $n=63$. Evaluation: $N=1210$.}\\label{tab:corrected-medqa}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{MedMCQA: complete heldout before/after cyclic metrics. Calibration $n=197$; evaluation $N=3744$.}\\label{tab:corrected-medmcqa}\n",
+  "new": "\\caption{MedMCQA: complete heldout before/after cyclic metrics. Calibration: $n=197$. Evaluation: $N=3744$.}\\label{tab:corrected-medmcqa}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\FloatBarrier\\paragraph{All exceptions to the dominant corrected pattern.} Cyclic RStd increases for Qwen2.5 on CSQA, Mistral on MedQA, and Qwen3 on ARC-C and CSQA. Consistency decreases for Mistral on MMLU, ARC-C and MedQA, and Qwen3 on ARC-C, CSQA and MedMCQA. There are no ties in either endpoint across the 30 pairs. The counts 26/30 and 24/30 use strict signs of unrounded values, not the displayed two-decimal cells; exact consistency gains minus losses give the same signs. The Qwen3 MedMCQA decrease is one question, approximately 0.027 pp. These counts carry no significance claim.\n",
+  "new": "\\FloatBarrier\\paragraph{All exceptions to the dominant corrected pattern.} Cyclic RStd increases for Qwen2.5 on CSQA, Mistral on MedQA, and Qwen3 on ARC-C and CSQA. Consistency decreases for Mistral on MMLU, ARC-C and MedQA, and Qwen3 on ARC-C, CSQA and MedMCQA. There are no ties in either endpoint across the 30 pairs. The counts 26/30 and 24/30 use strict signs of unrounded values, not the displayed two-decimal cells. Exact consistency gains minus losses give the same signs. The Qwen3 MedMCQA decrease is one question, approximately 0.027 pp. These counts carry no significance claim.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_appendix.tex",
+  "old": "\\caption{Full-population Default by MMLU grouping. M denotes the medical group, Rest its remaining-subject complement. Accuracy and consistency are percent; RStd is pp.}\\label{tab:mmlu-group-default}\\\\\n",
+  "new": "\\caption{Full-population Default by MMLU grouping. M denotes the medical group, Rest its remaining-subject complement. Accuracy and consistency are in percent, whereas RStd is in pp.}\\label{tab:mmlu-group-default}\\\\\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "robustness_transfer_summary.tex",
+  "old": "\\par\\vspace{3pt}\\begin{minipage}{.98\\linewidth}\\footnotesize Source 63 changes only the source prior, using the nested randomized 63-question subset; target fits remain 63/197. Pool columns instead resample both original pools with replacement at 63/197 draws, seeds 42--46. SD uses $n-1$ and is not a CI. Direction / 5 counts positive forward or negative reverse contrasts among the five draws. These are separate supplementary conditions.\\end{minipage}\n",
+  "new": "\\par\\vspace{3pt}\\begin{minipage}{.98\\linewidth}\\footnotesize Source 63 changes only the source prior, using the nested randomized 63-question subset, while target fits remain 63/197. Pool columns instead resample both original pools with replacement at 63/197 draws, seeds 42--46. SD uses $n-1$ and is not a CI. Direction / 5 counts positive forward or negative reverse contrasts among the five draws. These are separate supplementary conditions.\\end{minipage}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "rq1_default_panel_comparison.tex",
+  "old": "\\caption{Default panel summaries before debiasing. A is unweighted mean accuracy (\\%) and R is original RStd (pp). Zheng uses all twenty published model rows \\citep[Table~3, p.~22]{zheng2024robust}, and Current uses all six verified models. Original means use published one-decimal cells, while current means use unrounded endpoints.}\n",
+  "new": "\\caption{Default panel summaries before correction. A is unweighted mean accuracy (\\%) and R is original RStd (pp). Zheng uses all twenty published model rows \\citep[Table~3, p.~22]{zheng2024robust}, and Current uses all six verified models. Original means use published one-decimal cells, while current means use unrounded endpoints.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "rq1_default_panel_comparison.tex",
+  "old": "The Zheng panel includes GPT-3.5, evaluated differently. Excluding it, the nineteen-model open panel has Default mean A/R of 47.14/12.79, 57.93/11.33, 56.08/13.75 for MMLU, ARC-Challenge and CommonsenseQA, respectively; these are calculated from the retained published rounded cells.\n",
+  "new": "The Zheng panel includes GPT-3.5, evaluated differently. Excluding it, the nineteen-model open panel has Default mean A/R of 47.14/12.79, 57.93/11.33, 56.08/13.75 for MMLU, ARC-Challenge and CommonsenseQA, respectively. These values are calculated from the retained published rounded cells.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "rq1_zheng_comparison.tex",
+  "old": "Published $\\Delta$ Average cells (CPA; PriDe (5\\%)), each pair $\\Delta A/\\Delta R$ in pp: MMLU $+4.9/-8.7$; $+1.2/-7.6$; ARC-Challenge $+5.7/-8.6$; $+1.3/-5.6$; CommonsenseQA $+7.9/-11.2$; $+1.7/-6.9$. Their original one-decimal precision is retained; recalculated changes above can differ at rounding boundaries.\n",
+  "new": "Published $\\Delta$ Average cells, each given as $\\Delta A/\\Delta R$ in pp for CPA and PriDe (5\\%), respectively: MMLU $+4.9/-8.7$ and $+1.2/-7.6$, ARC-Challenge $+5.7/-8.6$ and $+1.3/-5.6$, CommonsenseQA $+7.9/-11.2$ and $+1.7/-6.9$. Their original one-decimal precision is retained, so recalculated changes above can differ at rounding boundaries.\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "strengthening_mmlu_repair.tex",
+  "old": "\\caption{Literal MMLU inputs minus the primary inputs, on all 13,592 questions. Changes are in pp for Default, CPA and hybrid PriDe accuracy ($\\Delta A$), and hybrid original RStd ($\\Delta R_H$). The ten corrected questions replace their cached cycles; every prior is refitted on its original calibration IDs. Twelve old-input controls per model check scorer agreement.}\n",
+  "new": "\\caption{Literal MMLU inputs minus the primary inputs, on all 13,592 questions. Changes are in pp for Default, CPA and PriDe (5\\%) accuracy ($\\Delta A$), and hybrid original RStd ($\\Delta R_H$). The ten corrected questions replace their cached cycles, and every prior is refitted on its original calibration IDs. Twelve old-input controls per model check scorer agreement.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "strengthening_native_chat.tex",
+  "old": "\\caption{Native-template medical scoring on the same 1,273 MedQA and 3,941 MedMCQA questions. A and C are native Default accuracy and semantic consistency (\\%); $\\Delta$ is native minus raw (pp). $R_{\\rm cyc}$ is native Default cyclic RStd, and $R_D$/$R_H$ are native Default/hybrid original RStd (pp). H$_r$ and H$_n$ give PriDe (5\\%) minus Default accuracy under raw and native input (pp), with identical calibration IDs and format-specific priors. Qwen3 uses its non-thinking template.}\n",
+  "new": "\\caption{Native-template medical scoring on the same 1,273 MedQA and 3,941 MedMCQA questions. A and C are native Default accuracy and semantic consistency (\\%), and $\\Delta$ is native minus raw (pp). $R_{\\rm cyc}$ is native Default cyclic RStd, and $R_D$/$R_H$ are native Default/hybrid original RStd (pp). H$_r$ and H$_n$ give PriDe (5\\%) minus Default accuracy under raw and native input (pp), with identical calibration IDs and format-specific priors. Qwen3 uses its non-thinking template.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "strengthening_subgroups.tex",
+  "old": "\\caption{MedMCQA by released choice type: single (S, $N=2,801$) and multi (M, $N=1,140$). C is uncorrected semantic consistency (\\%); $\\Delta A$ is five-draw hybrid PriDe minus Default accuracy (pp); R is cyclic RStd (pp). Predictions use the original benchmark-wide calibration draws, with no subgroup prior fitting.}\n",
+  "new": "\\caption{MedMCQA by released choice type: single (S, $N=2,801$) and multi (M, $N=1,140$). C is uncorrected semantic consistency (\\%), $\\Delta A$ is five-draw PriDe (5\\%) minus Default accuracy (pp), and R is cyclic RStd (pp). Predictions use the original benchmark-wide calibration draws, with no subgroup prior fitting.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "strengthening_transfer.tex",
+  "old": "\\caption{Transferred PriDe relative to In-domain PriDe on the primary holdouts. TV$_{ST}$ is the distance between priors; TV$_{Q,U}$ and TV$_{M,U}$ are their distances to uniform for MedQA and MedMCQA (probability units). Switches are percentages; G/L counts wrong-to-correct/correct-to-wrong changes. F: MedQA to MedMCQA, $n=3,744$; Rev.: MedMCQA to MedQA, $n=1,210$.}\n",
+  "new": "\\caption{Transferred PriDe relative to In-domain PriDe on the primary holdouts. TV$_{ST}$ is the distance between priors. TV$_{Q,U}$ and TV$_{M,U}$ are their distances to uniform for MedQA and MedMCQA (probability units). Switches are percentages, and G/L counts wrong-to-correct/correct-to-wrong changes. F denotes MedQA to MedMCQA ($n=3,744$), and Rev. denotes MedMCQA to MedQA ($n=1,210$).}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "transfer_medmcqa.tex",
+  "old": "\\caption{MedMCQA $\\rightarrow$ MedQA. Four methods on identical target $T_r$ ($n=1,210$), raw-text protocol. A is accuracy (\\%), R original RStd (pp); I and T denote in-domain and transferred PriDe. One seed-42 split; source/target fit counts are 63/197 or 197/63.}\n",
+  "new": "\\caption{MedMCQA $\\rightarrow$ MedQA. Four methods on identical target $T_r$ ($n=1,210$), raw-text protocol. A is accuracy (\\%), R original RStd (pp). I and T denote In-domain and Transferred PriDe. All results use one seed-42 split, with source/target fit counts of 63/197 or 197/63.}\n"
+ },
+ {
+  "stage": "after_structural",
+  "file": "transfer_medqa.tex",
+  "old": "\\caption{MedQA $\\rightarrow$ MedMCQA. Four methods on identical target $T_r$ ($n=3,744$), raw-text protocol. A is accuracy (\\%), R original RStd (pp); I and T denote in-domain and transferred PriDe. One seed-42 split; source/target fit counts are 63/197 or 197/63.}\n",
+  "new": "\\caption{MedQA $\\rightarrow$ MedMCQA. Four methods on identical target $T_r$ ($n=3,744$), raw-text protocol. A is accuracy (\\%), R original RStd (pp). I and T denote In-domain and Transferred PriDe. All results use one seed-42 split, with source/target fit counts of 63/197 or 197/63.}\n"
+ }
+]

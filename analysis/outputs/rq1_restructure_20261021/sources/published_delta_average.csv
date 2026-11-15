@@ -1,0 +1,7 @@
+benchmark,method,rstd_change_pp,accuracy_change_pp
+mmlu,cpa,-8.7,+4.9
+mmlu,pride,-7.6,+1.2
+arc,cpa,-8.6,+5.7
+arc,pride,-5.6,+1.3
+csqa,cpa,-11.2,+7.9
+csqa,pride,-6.9,+1.7

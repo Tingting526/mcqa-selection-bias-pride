@@ -1,0 +1,19 @@
+% Generated from verified numerical artifacts; edit the generator, not cells.
+\begin{table}[htbp]
+\centering\small\setlength{\tabcolsep}{4pt}
+\caption{MedQA $\rightarrow$ MedMCQA. Four methods on identical target $T_r$ ($n=3,744$), raw-text protocol. A is accuracy (\%), R original RStd (pp). I and T denote In-domain and Transferred PriDe. All results use one seed-42 split, with source/target fit counts of 63/197 or 197/63.}
+\label{tab:transfer-medqa}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Model & \multicolumn{2}{c}{Default} & \multicolumn{2}{c}{I} & \multicolumn{2}{c}{T} & \multicolumn{2}{c}{CPA}\\
+ & A & R & A & R & A & R & A & R\\
+\midrule
+Llama 3.1 8B & 59.38 & 7.79 & 59.32 & 2.98 & 59.35 & 4.10 & 60.71 & 1.93\\
+Qwen2.5 7B & 56.09 & 4.80 & 55.72 & 2.53 & 56.22 & 3.34 & 57.45 & 0.94\\
+Gemma 2 9B & 40.68 & 25.48 & 40.87 & 13.58 & 41.21 & 21.29 & 41.93 & 3.44\\
+Mistral 7B v0.3 & 48.21 & 5.22 & 47.44 & 3.10 & 48.16 & 4.91 & 49.39 & 1.87\\
+Qwen3 8B & 57.64 & 3.56 & 57.64 & 3.20 & 57.88 & 2.43 & 60.10 & 1.14\\
+GLM 4 9B & 49.84 & 10.57 & 49.44 & 2.21 & 49.60 & 3.17 & 50.08 & 1.32\\
+\bottomrule
+\end{tabular}
+\end{table}

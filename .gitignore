@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+.venv/
+.micromamba/
+.env
+.env.*
+*.pem
+*.key
+# Downloaded or generated, never committed
+analysis/data/
+analysis/outputs/reproductions/
+analysis/outputs/lrz-results/
+analysis/outputs/preprocessed/
+analysis/outputs/raw/
+analysis/outputs/cache/
+analysis/outputs/logs/
+analysis/outputs/rq1_restructure_20261021/sources/*.pdf
+tmp/
+*.pdf
+!Paper/figures/*.pdf

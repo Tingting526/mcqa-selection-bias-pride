@@ -1,0 +1,624 @@
+{
+  "status": "pass",
+  "phase6_outputs_verified": 172,
+  "phase6_sources_verified": 276,
+  "equal_budget": [
+    {
+      "model": "llama-3.1-8b-instruct",
+      "source": "medqa",
+      "target": "medmcqa",
+      "source_fit_n": 63,
+      "target_fit_n": 197,
+      "target_n": 3744,
+      "exact_target_hash": "f9b3d8bc6b663b47904f07a76f8072715a9353fbea2b9f21053c0587dd3de8e5"
+    },
+    {
+      "model": "llama-3.1-8b-instruct",
+      "source": "medmcqa",
+      "target": "medqa",
+      "source_fit_n": 63,
+      "target_fit_n": 63,
+      "target_n": 1210,
+      "exact_target_hash": "aab62f80193ec451ee36c315c474c0233ecd97e242de871f8fe813ef7882d566"
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "source": "medqa",
+      "target": "medmcqa",
+      "source_fit_n": 63,
+      "target_fit_n": 197,
+      "target_n": 3744,
+      "exact_target_hash": "f9b3d8bc6b663b47904f07a76f8072715a9353fbea2b9f21053c0587dd3de8e5"
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "source": "medmcqa",
+      "target": "medqa",
+      "source_fit_n": 63,
+      "target_fit_n": 63,
+      "target_n": 1210,
+      "exact_target_hash": "aab62f80193ec451ee36c315c474c0233ecd97e242de871f8fe813ef7882d566"
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "source": "medqa",
+      "target": "medmcqa",
+      "source_fit_n": 63,
+      "target_fit_n": 197,
+      "target_n": 3744,
+      "exact_target_hash": "f9b3d8bc6b663b47904f07a76f8072715a9353fbea2b9f21053c0587dd3de8e5"
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "source": "medmcqa",
+      "target": "medqa",
+      "source_fit_n": 63,
+      "target_fit_n": 63,
+      "target_n": 1210,
+      "exact_target_hash": "aab62f80193ec451ee36c315c474c0233ecd97e242de871f8fe813ef7882d566"
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "source": "medqa",
+      "target": "medmcqa",
+      "source_fit_n": 63,
+      "target_fit_n": 197,
+      "target_n": 3744,
+      "exact_target_hash": "f9b3d8bc6b663b47904f07a76f8072715a9353fbea2b9f21053c0587dd3de8e5"
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "source": "medmcqa",
+      "target": "medqa",
+      "source_fit_n": 63,
+      "target_fit_n": 63,
+      "target_n": 1210,
+      "exact_target_hash": "aab62f80193ec451ee36c315c474c0233ecd97e242de871f8fe813ef7882d566"
+    },
+    {
+      "model": "qwen3-8b",
+      "source": "medqa",
+      "target": "medmcqa",
+      "source_fit_n": 63,
+      "target_fit_n": 197,
+      "target_n": 3744,
+      "exact_target_hash": "f9b3d8bc6b663b47904f07a76f8072715a9353fbea2b9f21053c0587dd3de8e5"
+    },
+    {
+      "model": "qwen3-8b",
+      "source": "medmcqa",
+      "target": "medqa",
+      "source_fit_n": 63,
+      "target_fit_n": 63,
+      "target_n": 1210,
+      "exact_target_hash": "aab62f80193ec451ee36c315c474c0233ecd97e242de871f8fe813ef7882d566"
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "source": "medqa",
+      "target": "medmcqa",
+      "source_fit_n": 63,
+      "target_fit_n": 197,
+      "target_n": 3744,
+      "exact_target_hash": "f9b3d8bc6b663b47904f07a76f8072715a9353fbea2b9f21053c0587dd3de8e5"
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "source": "medmcqa",
+      "target": "medqa",
+      "source_fit_n": 63,
+      "target_fit_n": 63,
+      "target_n": 1210,
+      "exact_target_hash": "aab62f80193ec451ee36c315c474c0233ecd97e242de871f8fe813ef7882d566"
+    }
+  ],
+  "seed_conditions": [
+    {
+      "policy": "fixed_pool_with_replacement",
+      "rows": 60,
+      "exact_draws_and_multiplicities_verified": true
+    },
+    {
+      "policy": "full_pool_without_replacement_control",
+      "rows": 60,
+      "exact_draws_and_multiplicities_verified": true
+    }
+  ],
+  "resampling_definition": {
+    "unit": "original calibration question with its complete cached cyclic orbit",
+    "draw_counts": {
+      "medqa": 63,
+      "medmcqa": 197
+    },
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "replacement": true,
+    "duplicates": "Repeated question priors receive their full multiplicity in arithmetic mean",
+    "both_priors_refitted": true,
+    "primary_seed42": "reference only; not one of the five resampled fits",
+    "scope": "Conditional empirical-pool sensitivity, not independent dataset partitions or all possible benchmark splits"
+  },
+  "permutation_checks": [
+    {
+      "model": "llama-3.1-8b-instruct",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -1.6969059430214175,
+      "consistency_delta_pp": 0.5033686982111051,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "llama-3.1-8b-instruct",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": -1.2697128079558757,
+      "consistency_delta_pp": 0.5420054200542005,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "llama-3.1-8b-instruct",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": -1.0012099209909184,
+      "consistency_delta_pp": 0.5190311418685121,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "llama-3.1-8b-instruct",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": -3.0144280084094577,
+      "consistency_delta_pp": 1.8181818181818181,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "llama-3.1-8b-instruct",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -3.884907503389048,
+      "consistency_delta_pp": 3.8995726495726495,
+      "evaluation_n": 3744
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -0.3407511346050782,
+      "consistency_delta_pp": 0.4259273600247812,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": -0.20924715486299683,
+      "consistency_delta_pp": 0.5420054200542005,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": 0.9601562732999188,
+      "consistency_delta_pp": 0.17301038062283736,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": -1.1435663335591797,
+      "consistency_delta_pp": 1.8181818181818181,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "qwen2.5-7b-instruct",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -1.7807609516929923,
+      "consistency_delta_pp": 1.5491452991452992,
+      "evaluation_n": 3744
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -5.753461476649942,
+      "consistency_delta_pp": 2.9582591187175713,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": -4.300721645920099,
+      "consistency_delta_pp": 5.9620596205962055,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": -5.195685068335772,
+      "consistency_delta_pp": 3.546712802768166,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": -3.3050511323725766,
+      "consistency_delta_pp": 0.6611570247933884,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "gemma-2-9b-it",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -12.697943338252111,
+      "consistency_delta_pp": 5.662393162393163,
+      "evaluation_n": 3744
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -0.3173214533302544,
+      "consistency_delta_pp": -1.5101060946333154,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": -0.21827138995198858,
+      "consistency_delta_pp": -0.45167118337850043,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": -3.119403837626611,
+      "consistency_delta_pp": 1.1245674740484428,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": 3.3333262197742966,
+      "consistency_delta_pp": -2.809917355371901,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -2.1187041143688448,
+      "consistency_delta_pp": 0.5074786324786325,
+      "evaluation_n": 3744
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -0.7742475729840672,
+      "consistency_delta_pp": 0.8673429876868273,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": 1.1034533458493967,
+      "consistency_delta_pp": -1.2646793134598013,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": 0.09595772510209155,
+      "consistency_delta_pp": -1.3840830449826989,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": -2.9454530492653515,
+      "consistency_delta_pp": 3.6363636363636362,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -0.6498793217656949,
+      "consistency_delta_pp": -0.026709401709401708,
+      "evaluation_n": 3744
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -5.41182655335374,
+      "consistency_delta_pp": 4.375435607527298,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": -2.4952689116879743,
+      "consistency_delta_pp": 2.710027100271003,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": -5.39190183909699,
+      "consistency_delta_pp": 8.391003460207612,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": -6.7126213135916135,
+      "consistency_delta_pp": 6.6115702479338845,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "glm-4-9b-chat-hf",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -8.460294294144235,
+      "consistency_delta_pp": 4.780982905982906,
+      "evaluation_n": 3744
+    }
+  ],
+  "cyclic_rstd_decreases": 26,
+  "consistency_increases": 24,
+  "count_policy": "Strict signs of unrounded metrics; consistency also independently checked as exact integer gained-minus-lost count. No sign differs at1e-9pp tolerance. No significance test.",
+  "cyclic_rstd_exceptions": [
+    {
+      "model": "qwen2.5-7b-instruct",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": 0.9601562732999188,
+      "consistency_delta_pp": 0.17301038062283736,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": 3.3333262197742966,
+      "consistency_delta_pp": -2.809917355371901,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": 1.1034533458493967,
+      "consistency_delta_pp": -1.2646793134598013,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": 0.09595772510209155,
+      "consistency_delta_pp": -1.3840830449826989,
+      "evaluation_n": 1156
+    }
+  ],
+  "consistency_exceptions": [
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "mmlu",
+      "cyclic_rstd_delta_pp": -0.3173214533302544,
+      "consistency_delta_pp": -1.5101060946333154,
+      "evaluation_n": 12913
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": -0.21827138995198858,
+      "consistency_delta_pp": -0.45167118337850043,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "mistral-7b-instruct-v0.3",
+      "benchmark": "medqa",
+      "cyclic_rstd_delta_pp": 3.3333262197742966,
+      "consistency_delta_pp": -2.809917355371901,
+      "evaluation_n": 1210
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "arc",
+      "cyclic_rstd_delta_pp": 1.1034533458493967,
+      "consistency_delta_pp": -1.2646793134598013,
+      "evaluation_n": 1107
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "csqa",
+      "cyclic_rstd_delta_pp": 0.09595772510209155,
+      "consistency_delta_pp": -1.3840830449826989,
+      "evaluation_n": 1156
+    },
+    {
+      "model": "qwen3-8b",
+      "benchmark": "medmcqa",
+      "cyclic_rstd_delta_pp": -0.6498793217656949,
+      "consistency_delta_pp": -0.026709401709401708,
+      "evaluation_n": 3744
+    }
+  ],
+  "mmlu_grouping": {
+    "policy": "Declared before inspecting performance; topic-name classification, not clinical purity",
+    "core5": [
+      "anatomy",
+      "clinical_knowledge",
+      "college_medicine",
+      "medical_genetics",
+      "professional_medicine"
+    ],
+    "broad8": [
+      "anatomy",
+      "clinical_knowledge",
+      "college_medicine",
+      "human_aging",
+      "medical_genetics",
+      "nutrition",
+      "professional_medicine",
+      "virology"
+    ],
+    "rationale": "Core explicitly medical teaching/clinical subjects; broad adds human aging, nutrition, virology. All complements are remaining subjects, including medically related biology/psychology; no pure nonmedical control is claimed.",
+    "all_subjects": [
+      "abstract_algebra",
+      "anatomy",
+      "astronomy",
+      "business_ethics",
+      "clinical_knowledge",
+      "college_biology",
+      "college_chemistry",
+      "college_computer_science",
+      "college_mathematics",
+      "college_medicine",
+      "college_physics",
+      "computer_security",
+      "conceptual_physics",
+      "econometrics",
+      "electrical_engineering",
+      "elementary_mathematics",
+      "formal_logic",
+      "global_facts",
+      "high_school_biology",
+      "high_school_chemistry",
+      "high_school_computer_science",
+      "high_school_european_history",
+      "high_school_geography",
+      "high_school_government_and_politics",
+      "high_school_macroeconomics",
+      "high_school_mathematics",
+      "high_school_microeconomics",
+      "high_school_physics",
+      "high_school_psychology",
+      "high_school_statistics",
+      "high_school_us_history",
+      "high_school_world_history",
+      "human_aging",
+      "human_sexuality",
+      "international_law",
+      "jurisprudence",
+      "logical_fallacies",
+      "machine_learning",
+      "management",
+      "marketing",
+      "medical_genetics",
+      "miscellaneous",
+      "moral_disputes",
+      "moral_scenarios",
+      "nutrition",
+      "philosophy",
+      "prehistory",
+      "professional_accounting",
+      "professional_law",
+      "professional_medicine",
+      "professional_psychology",
+      "public_relations",
+      "security_studies",
+      "sociology",
+      "us_foreign_policy",
+      "virology",
+      "world_religions"
+    ],
+    "excluded_core5": [
+      "abstract_algebra",
+      "astronomy",
+      "business_ethics",
+      "college_biology",
+      "college_chemistry",
+      "college_computer_science",
+      "college_mathematics",
+      "college_physics",
+      "computer_security",
+      "conceptual_physics",
+      "econometrics",
+      "electrical_engineering",
+      "elementary_mathematics",
+      "formal_logic",
+      "global_facts",
+      "high_school_biology",
+      "high_school_chemistry",
+      "high_school_computer_science",
+      "high_school_european_history",
+      "high_school_geography",
+      "high_school_government_and_politics",
+      "high_school_macroeconomics",
+      "high_school_mathematics",
+      "high_school_microeconomics",
+      "high_school_physics",
+      "high_school_psychology",
+      "high_school_statistics",
+      "high_school_us_history",
+      "high_school_world_history",
+      "human_aging",
+      "human_sexuality",
+      "international_law",
+      "jurisprudence",
+      "logical_fallacies",
+      "machine_learning",
+      "management",
+      "marketing",
+      "miscellaneous",
+      "moral_disputes",
+      "moral_scenarios",
+      "nutrition",
+      "philosophy",
+      "prehistory",
+      "professional_accounting",
+      "professional_law",
+      "professional_psychology",
+      "public_relations",
+      "security_studies",
+      "sociology",
+      "us_foreign_policy",
+      "virology",
+      "world_religions"
+    ],
+    "excluded_broad8": [
+      "abstract_algebra",
+      "astronomy",
+      "business_ethics",
+      "college_biology",
+      "college_chemistry",
+      "college_computer_science",
+      "college_mathematics",
+      "college_physics",
+      "computer_security",
+      "conceptual_physics",
+      "econometrics",
+      "electrical_engineering",
+      "elementary_mathematics",
+      "formal_logic",
+      "global_facts",
+      "high_school_biology",
+      "high_school_chemistry",
+      "high_school_computer_science",
+      "high_school_european_history",
+      "high_school_geography",
+      "high_school_government_and_politics",
+      "high_school_macroeconomics",
+      "high_school_mathematics",
+      "high_school_microeconomics",
+      "high_school_physics",
+      "high_school_psychology",
+      "high_school_statistics",
+      "high_school_us_history",
+      "high_school_world_history",
+      "human_sexuality",
+      "international_law",
+      "jurisprudence",
+      "logical_fallacies",
+      "machine_learning",
+      "management",
+      "marketing",
+      "miscellaneous",
+      "moral_disputes",
+      "moral_scenarios",
+      "philosophy",
+      "prehistory",
+      "professional_accounting",
+      "professional_law",
+      "professional_psychology",
+      "public_relations",
+      "security_studies",
+      "sociology",
+      "us_foreign_policy",
+      "world_religions"
+    ]
+  },
+  "group_definitions_before_performance": true,
+  "interpretation_correction": "Use calibration-pool resampling sensitivity. Earlier generic seed-sensitivity headings are too broad; no new independent partitions were evaluated. All-six reverse-negative means extend, rather than exactly reproduce, the primary five-negative/one-tie pattern.",
+  "integration_authorization": "The Phase7 request explicitly asks to verify and integrate the executed with-replacement condition using accurate terminology; the prior Phase6 preference is no longer a blocker.",
+  "no_new_inference": true
+}

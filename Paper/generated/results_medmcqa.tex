@@ -1,0 +1,19 @@
+% Structural revision from plot_data.json medical full-precision endpoints.
+\begin{table}[htbp]
+\centering\small\setlength{\tabcolsep}{4pt}
+\caption{MedMCQA ($N=3,941$), raw-text zero-shot scoring. Accuracy (A) is percent and original RStd (R) is pp. All methods use full $D$, and PriDe (5\%) is the five-draw hybrid mean.}
+\label{tab:results-pride-medmcqa}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & \multicolumn{2}{c}{Default} & \multicolumn{2}{c}{CPA} & \multicolumn{2}{c}{PriDe (5\%)}\\
+ & A & R & A & R & A & R\\
+\midrule
+Llama 3.1 8B & 59.22 & 7.58 & 60.44 & 2.02 & 59.22 & 3.05\\
+Qwen2.5 7B & 56.05 & 5.01 & 57.37 & 0.84 & 55.80 & 3.09\\
+Gemma 2 9B & 40.62 & 25.27 & 42.15 & 3.45 & 40.83 & 12.51\\
+Mistral 7B v0.3 & 48.21 & 5.10 & 49.25 & 1.82 & 47.66 & 3.38\\
+Qwen3 8B & 57.55 & 3.78 & 60.24 & 1.26 & 57.78 & 2.82\\
+GLM 4 9B & 49.86 & 10.75 & 49.99 & 1.06 & 49.37 & 2.62\\
+\bottomrule
+\end{tabular}
+\end{table}

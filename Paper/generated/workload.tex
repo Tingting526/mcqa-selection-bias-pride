@@ -1,0 +1,17 @@
+% Generated from verified numerical artifacts; edit the generator, not cells.
+\begin{table}[htbp]
+\centering\small\setlength{\tabcolsep}{4pt}
+\caption{Nominal scored prompts for one full-population application. H uses CPA on the calibration subset and correction on the remainder. These are not measured runtime or total experimental collection costs.}
+\label{tab:workload}
+\begin{tabular}{lrrrrrr}
+\toprule
+Benchmark & $K$ & $|D_e|$ & Default & H & CPA & H/Default\\
+\midrule
+MMLU & 4 & 679 & 13,592 & 15,629 & 54,368 & 1.150\\
+ARC-Challenge & 4 & 58 & 1,165 & 1,339 & 4,660 & 1.149\\
+CommonsenseQA & 5 & 60 & 1,216 & 1,456 & 6,080 & 1.197\\
+MedQA & 4 & 63 & 1,273 & 1,462 & 5,092 & 1.148\\
+MedMCQA & 4 & 197 & 3,941 & 4,532 & 15,764 & 1.150\\
+\bottomrule
+\end{tabular}
+\end{table}

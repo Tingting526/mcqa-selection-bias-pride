@@ -1,0 +1,18 @@
+% Generated from verified numerical artifacts; edit the generator, not cells.
+\begin{table}[htbp]
+\centering\small\setlength{\tabcolsep}{4pt}
+\caption{MedMCQA $\rightarrow$ MedQA paired accuracy differences (pp) and pointwise 95\% percentile intervals, $n=1,210$ target questions. I: in-domain, T: transfer, D: Default. 1,000 shared question-bootstrap draws, seed 20261018, fixed fitted priors.}
+\label{tab:intervals-medmcqa}
+\begin{tabular}{lrrr}
+\toprule
+Model & I $-$ D & T $-$ D & T $-$ I\\
+\midrule
+Llama 3.1 8B & $+0.25~[-0.91,1.49]$ & $-1.57~[-3.39,0.17]$ & $-1.82~[-3.14,-0.50]$\\
+Qwen2.5 7B & $+0.17~[-0.50,0.91]$ & $-0.41~[-1.49,0.58]$ & $-0.58~[-1.40,0.25]$\\
+Gemma 2 9B & $+0.17~[-0.83,1.16]$ & $-1.07~[-2.98,0.66]$ & $-1.24~[-2.73,0.08]$\\
+Mistral 7B v0.3 & $+0.33~[-0.83,1.40]$ & $-0.91~[-2.07,0.25]$ & $-1.24~[-2.15,-0.08]$\\
+Qwen3 8B & $+0.41~[-0.83,1.65]$ & $+0.41~[-0.74,1.57]$ & $+0.00~[-0.99,0.91]$\\
+GLM 4 9B & $+2.48~[1.07,3.97]$ & $+2.15~[0.66,3.72]$ & $-0.33~[-0.99,0.33]$\\
+\bottomrule
+\end{tabular}
+\end{table}

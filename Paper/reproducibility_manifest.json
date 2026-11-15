@@ -1,0 +1,156 @@
+{
+  "phase3b_results": "analysis/outputs/phase3b_20261018/verified",
+  "phase4_results": "analysis/outputs/phase4_20261018_20261018T091030Z",
+  "upstream_commit": "2ae2f40c77006f7a00a4675bdfb30151c2406691",
+  "phase3b_analysis_sha256": "4cfaa84a6975ba5641351431916a535b7c34c889dc4cf90053be15a79d2af91a",
+  "editorial_revision": "analysis/outputs/revision_cosmetic_20261103T143901Z",
+  "editorial_revision_scope": "Two cosmetic abstract edits: disambiguate the two medical benchmarks and describe near-equal transfer accuracy as match or slightly exceed. Subtitle retained.",
+  "phase6_results": "analysis/outputs/phase6_robustness_20261018",
+  "robustness_version": "phase6-robustness-v1",
+  "previous_editorial_revision": "analysis/outputs/revision_round2_20261103T135347Z",
+  "review_response": {
+    "version": "review-sensitivities-v1",
+    "plan": "analysis/outputs/thesis_strengthening_20261021/inference_plan.json",
+    "offline_results": "analysis/outputs/thesis_strengthening_20261021/analysis_results.json",
+    "gpu_results": "analysis/outputs/thesis_strengthening_20261021/gpu_sensitivity_results.json",
+    "prompt_replay": "analysis/outputs/thesis_strengthening_20261021/prompt_serialization_validation.json",
+    "scored_prompts_in_retained_conditions": 125664,
+    "scored_prompts_with_hardware_diagnostics": 146616,
+    "native_mistral_run": "gpu_results/mistral-7b-instruct-v0.3/chat_a100",
+    "mmlu_control_max_probability_error_all_models": 0.0,
+    "calibration": "Each new condition refits all five priors on original calibration memberships",
+    "original_primary_results_unchanged": true,
+    "final_source_sha256": {
+      "analysis/src/thesis_strengthening.py": "70948fea35431b35adeeea47497241cf44edb33ce6747810ca24aab8f8a8d86e",
+      "analysis/scripts/strengthen_thesis_offline.py": "77b07f561be17b7daa8f62761f72e58c0fba115e6a23cbf0ad4e1fbbd94dff58",
+      "analysis/scripts/run_thesis_sensitivity.py": "ed73f3b7cf6269297db8a79e99c19e352b4969dba5eb34646701351224bc974b",
+      "analysis/scripts/finalize_thesis_sensitivities.py": "cc31b4f540aa31169c20a139346b501a1aae17d360da227c730eda1b740cb6ab",
+      "analysis/scripts/verify_thesis_prompt_serialization.py": "0865f35abb44bdc83b481eb2f3508ec82210e87c2f8b68c79cd60cc135922511",
+      "analysis/scripts/build_strengthening_tables.py": "6e6e182ea11902010858312872f89644984d924f897f98ffb5883ea8fdb16ab1",
+      "analysis/tests/test_thesis_strengthening.py": "0cfcff829fc9c7c8a90755d02ffa6f5b615471d6069b91ff813aac96e6c774b8",
+      "analysis/scripts/slurm/thesis_sensitivity.sbatch": "429531eab9d3eed92496a39ad83d84bffdfb51d414132d6c86759f1e190dc9f1",
+      "analysis/scripts/slurm/thesis_mistral_a100.sbatch": "3c8f54a4b30e1f2e4f554252630329a3dee46e1f1fd0d2f5380131f4e9434182"
+    },
+    "completed": true
+  },
+  "final_pdf_sha256": "9b3fd2ae0d05b4e0d6ef03cc2f10dea674337f93e23c8377f32964791b190596",
+  "editorial_revision_history": [
+    "analysis/outputs/phase7_20261018_20261018T122106Z",
+    "analysis/outputs/thesis_strengthening_20261021",
+    "analysis/outputs/rq1_restructure_20261021",
+    "output/chapter5_revision_20261101",
+    "output/chapter6_revision_20261101",
+    "analysis/outputs/revision_20261103T113140Z",
+    "analysis/outputs/revision_round2_20261103T135347Z"
+  ],
+  "rq1_presentation": {
+    "version": "rq1-presentation-v2",
+    "provenance": "analysis/outputs/rq1_restructure_20261021/comparison_provenance.json",
+    "source_cells": "analysis/outputs/rq1_restructure_20261021/sources/published_table3_0shot.csv",
+    "validation": "analysis/outputs/rq1_restructure_20261021/validation_results.json",
+    "source_model_counts": {
+      "Zheng": 20,
+      "Current": 6
+    },
+    "current_model_endpoint_cells_preserved": 108,
+    "published_metric_cells_verified": 360,
+    "original_published_delta_average_cells_preserved": 12,
+    "inference_executed": false,
+    "underlying_experimental_results_unchanged": true,
+    "current_generator_sha256": "bb5983ead516032f2183905b123eaae53ecdcb837afbbc79885e991bd1b6cc28",
+    "current_legacy_caption_guard_sha256": "bfe9d00e1ceaff0a979a83b26b99405f12267b3c30639a24fb55ffdf8a282c32"
+  },
+  "chapter5_presentation": {
+    "version": "chapter5-presentation-20261101",
+    "plot_generator": "Paper/figures/generate_chapter5_figures.py",
+    "plot_generator_sha256": "62100232ee4df09f2344e640d9c8d8428c0dff376659f5a74149a077bafc7b8c",
+    "full_precision_data": "Paper/figures/chapter5_data/plot_data.json",
+    "data_sha256": "33befd72f5b5e3178c117c8e15904234624edf64b4386b986f550142c5e5bfac",
+    "validation": "output/chapter5_revision_20261101/validation.json",
+    "backup": "output/chapter5_revision_20261101/before/Paper",
+    "new_figures": 8,
+    "original_tables_relocated": 11,
+    "inference_executed": false,
+    "experimental_results_unchanged": true
+  },
+  "chapter6_presentation": {
+    "version": "chapter6-discussion-20261101",
+    "source": "Paper/chapters/discussion.tex",
+    "source_sha256": "384ce7d53750665ae45f3a9ea3c2aaa7d331996c9964f3f1e6447d5948da247b",
+    "backup": "output/chapter6_revision_20261101/before/Paper",
+    "validation": "output/chapter6_revision_20261101/validation.json",
+    "discussion_printed_pages": [
+      47,
+      51
+    ],
+    "subsections": 6,
+    "accuracy_recall_equation_unchanged": true,
+    "experimental_data_unchanged": true,
+    "inference_executed": false
+  },
+  "structural_revision": {
+    "version": "revision_20261103T113140Z",
+    "backup": "analysis/outputs/revision_20261103T113140Z/backup_Paper",
+    "change_log": "analysis/outputs/revision_20261103T113140Z/CHANGELOG.md",
+    "validation": "analysis/outputs/revision_20261103T113140Z/validation.json",
+    "numeric_provenance": "analysis/outputs/revision_20261103T113140Z/verified_numbers.json",
+    "table_values": "analysis/outputs/revision_20261103T113140Z/added_table_values.json",
+    "figure_version": "analysis/outputs/revision_20261103T113140Z/figures_v1",
+    "plot_generator_sha256": "d062ba3d0219aa2e35db7623404d6b374e5312613b75232ec79951b8817d963d",
+    "main_pages_before": 52,
+    "main_pages_after": 43,
+    "inference_executed": false,
+    "rq12_bootstrap_executed": false,
+    "primary_results_unchanged": true,
+    "bibliography_unchanged": true,
+    "declaration_of_authorship_unchanged": true,
+    "author_source_checks": "The four source-verification groups from section 12 of the revision instructions remain for the author; see CHANGELOG.md."
+  },
+  "round2_revision": {
+    "version": "revision_round2_20261103T135347Z",
+    "backup": "analysis/outputs/revision_round2_20261103T135347Z/backup_Paper",
+    "change_log": "analysis/outputs/revision_round2_20261103T135347Z/CHANGELOG.md",
+    "verified_numbers": "analysis/outputs/revision_round2_20261103T135347Z/verified_numbers_round2.json",
+    "noise_floor_script": "analysis/outputs/revision_round2_20261103T135347Z/noise_floor.py",
+    "noise_floor_csv": "analysis/outputs/revision_round2_20261103T135347Z/noise_floor_round2.csv",
+    "validation": "analysis/outputs/revision_round2_20261103T135347Z/validation_round2.json",
+    "main_pages_before": 43,
+    "main_pages_after": 43,
+    "total_pdf_pages": 85,
+    "inference_executed": false,
+    "bootstrap_executed": false,
+    "simulation_executed": false,
+    "generated_tables_unchanged": true,
+    "figures_and_snapshot_unchanged": true,
+    "title_master_and_declaration_unchanged": true,
+    "only_new_label": "sec:results-mmlu-subgroups"
+  },
+  "abstract_polish": {
+    "version": "revision_cosmetic_20261103T143901Z",
+    "backup": "analysis/outputs/revision_cosmetic_20261103T143901Z/backup_Paper",
+    "change_log": "analysis/outputs/revision_cosmetic_20261103T143901Z/CHANGELOG.md",
+    "validation": "analysis/outputs/revision_cosmetic_20261103T143901Z/validation.json",
+    "main_pages": 43,
+    "total_pdf_pages": 85,
+    "abstract_words": 211,
+    "subtitle_retained": true,
+    "numeric_tokens_unchanged": true
+  },
+  "figure_revision_20261115": {
+    "plot_generator": "Paper/figures/generate_chapter5_figures.py",
+    "plot_generator_sha256": "df99ab4e697d71c4204d1afe688ee7eabbe160ebb9f673cceb0935214091be06",
+    "plot_generator_change": "Spacing of the two note lines in calibration_sensitivity only. Plotted values unchanged.",
+    "additional_generators": {
+      "analysis/scripts/plot_transfer_contrasts.py": "f945312e859dc488f3a6dc12eb18fee4a3c0d6d9a7b69bfe8ae5795cea61deee",
+      "analysis/scripts/plot_heatmaps_wide.py": "00c70d1fe30d0ef44a39fc0adced2500ea9f48207aee2e204131304d45b8994e"
+    },
+    "additional_figures": [
+      "Paper/figures/transfer_accuracy_contrasts.pdf",
+      "Paper/figures/benchmark_robustness_wide.pdf",
+      "Paper/figures/corrected_permutation_robustness_wide.pdf"
+    ],
+    "inference_executed": false,
+    "bootstrap_executed": false,
+    "generated_tables_unchanged": true
+  }
+}

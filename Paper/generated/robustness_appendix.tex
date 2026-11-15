@@ -1,0 +1,628 @@
+\FloatBarrier\subsection{Supplementary robustness protocols and results}\label{app:robustness}
+
+The following tables supplement the primary endpoints rather than replacing them. Model abbreviations follow Table~\ref{tab:models}. $D$, $I$ and $T$ denote Default, In-domain PriDe and Transferred PriDe, while CPA is written in full. Accuracy and semantic consistency are percentages, whereas RStd, SD, range and contrasts are in pp. Values are displayed to two decimals, while all direction counts use unrounded quantities. Full-precision vectors, question IDs and multiplicities remain in the electronic artifacts.
+
+\subsubsection{Medical transfer: exact fitting restrictions}\label{app:robustness-transfer}
+
+The primary seed-42 fitting pools contain 63 MedQA and 197 MedMCQA questions, with fixed target complements of 1,210 and 3,744. Equal source budgets use \texttt{estimation\_order[:63]} from the saved source partition. Thus the MedMCQA source subset is nested in its original randomized pool, with no target test question added. Target in-domain fits remain unchanged. The forward prior averages the same 63 MedQA questions. Its averaging order differs from the sorted primary list only by floating-point accumulation (at most $2.8\times10^{-16}$ per coordinate), with exactly identical predictions and endpoints. The reverse prior averages 63 rather than 197 MedMCQA questions.
+
+For calibration-pool resampling, each benchmark and seed in $\{42,43,44,45,46\}$ initializes a separate Python \texttt{random.Random(seed)} generator. Starting from sorted original fit IDs, it draws 63 or 197 indices using \texttt{randrange(pool\_size)} with replacement. Each selected question contributes its normalized geometric prior once per occurrence. Both priors are refitted, and the same dataset-specific draw is reused across models and transfer directions. Repeated draws are not collapsed or deduplicated. The resulting unique counts range from 36 to 43 for MedQA and 121 to 126 for MedMCQA.
+
+The original seed-42 primary fit is a reference only. The with-replacement seed-42 draw differs from it. A full-pool, without-replacement control at all five seeds reproduces all original prior arrays and all four methods\textquotesingle{} accuracy/RStd endpoints exactly. Its zero variability follows from exhausting the available pool and is not evidence that calibration is generally stable. The informative condition measures variation conditional on one empirical fitting pool and a fixed test set. Its sample SD uses \texttt{ddof=1}. It neither estimates uncertainty over all dataset splits nor replaces the primary paired question-bootstrap intervals.
+
+Forward equal-budget endpoints are identical to Table~\ref{tab:transfer-medqa} by construction.
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedQA $\to$ MedMCQA: equal-budget contrasts (pp). The omitted changes from the primary transferred endpoint, $\Delta A_T$ and $\Delta R_T$, are zero for all models.}\label{tab:eq-contrasts-medqa}
+\begin{tabular}{lrrrr}
+\toprule
+Model & $A_T-A_I$ & $A_T-A_D$ & $R_T-R_I$ & $R_T-R_D$\\
+\midrule
+Llama 3.1 & 0.03 & -0.03 & 1.12 & -3.68\\
+Qwen2.5 & 0.51 & 0.13 & 0.81 & -1.46\\
+Gemma 2 & 0.35 & 0.53 & 7.71 & -4.19\\
+Mistral & 0.72 & -0.05 & 1.81 & -0.31\\
+Qwen3 & 0.24 & 0.24 & -0.78 & -1.13\\
+GLM 4 & 0.16 & -0.24 & 0.95 & -7.40\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedQA $\to$ MedMCQA: option-ID prior from the 63-question source subset (probability units). Target priors remain those in Figure~\ref{fig:medical-priors}.}\label{tab:eq-prior-medqa}
+\begin{tabular}{lrrrr}
+\toprule
+Model & A & B & C & D\\
+\midrule
+Llama 3.1 & 0.27541 & 0.31098 & 0.18490 & 0.22871\\
+Qwen2.5 & 0.30105 & 0.26741 & 0.11238 & 0.31916\\
+Gemma 2 & 0.43164 & 0.19649 & 0.19365 & 0.17822\\
+Mistral & 0.32402 & 0.12899 & 0.24903 & 0.29796\\
+Qwen3 & 0.17165 & 0.11214 & 0.15877 & 0.55744\\
+GLM 4 & 0.26224 & 0.36804 & 0.19464 & 0.17508\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{lrrrrrrr}
+\caption{MedQA $\to$ MedMCQA: calibration-pool resampling accuracy (percent). Contrasts are in pp, and the fixed target holdout has $N=3744$.}\label{tab:pool-medqa-accuracy}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endfirsthead
+\multicolumn{8}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endhead
+\midrule\multicolumn{8}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & 42 & 59.38 & 59.32 & 59.64 & 60.71 & 0.32 & 0.27\\*
+Llama 3.1 & 43 & 59.38 & 59.32 & 59.56 & 60.71 & 0.24 & 0.19\\*
+Llama 3.1 & 44 & 59.38 & 59.24 & 59.35 & 60.71 & 0.11 & -0.03\\*
+Llama 3.1 & 45 & 59.38 & 59.48 & 59.35 & 60.71 & -0.13 & -0.03\\*
+Llama 3.1 & 46 & 59.38 & 59.24 & 59.51 & 60.71 & 0.27 & 0.13\\
+Qwen2.5 & 42 & 56.09 & 55.66 & 56.14 & 57.45 & 0.48 & 0.05\\*
+Qwen2.5 & 43 & 56.09 & 55.61 & 55.88 & 57.45 & 0.27 & -0.21\\*
+Qwen2.5 & 44 & 56.09 & 55.56 & 56.25 & 57.45 & 0.69 & 0.16\\*
+Qwen2.5 & 45 & 56.09 & 55.82 & 55.98 & 57.45 & 0.16 & -0.11\\*
+Qwen2.5 & 46 & 56.09 & 55.77 & 56.12 & 57.45 & 0.35 & 0.03\\
+Gemma 2 & 42 & 40.68 & 40.76 & 41.13 & 41.93 & 0.37 & 0.45\\*
+Gemma 2 & 43 & 40.68 & 40.87 & 41.21 & 41.93 & 0.35 & 0.53\\*
+Gemma 2 & 44 & 40.68 & 40.73 & 41.11 & 41.93 & 0.37 & 0.43\\*
+Gemma 2 & 45 & 40.68 & 40.62 & 41.13 & 41.93 & 0.51 & 0.45\\*
+Gemma 2 & 46 & 40.68 & 40.52 & 41.13 & 41.93 & 0.61 & 0.45\\
+Mistral & 42 & 48.21 & 47.41 & 48.08 & 49.39 & 0.67 & -0.13\\*
+Mistral & 43 & 48.21 & 47.57 & 47.86 & 49.39 & 0.29 & -0.35\\*
+Mistral & 44 & 48.21 & 47.62 & 48.10 & 49.39 & 0.48 & -0.11\\*
+Mistral & 45 & 48.21 & 47.44 & 48.05 & 49.39 & 0.61 & -0.16\\*
+Mistral & 46 & 48.21 & 47.41 & 48.02 & 49.39 & 0.61 & -0.19\\
+Qwen3 & 42 & 57.64 & 57.56 & 57.96 & 60.10 & 0.40 & 0.32\\*
+Qwen3 & 43 & 57.64 & 57.61 & 57.83 & 60.10 & 0.21 & 0.19\\*
+Qwen3 & 44 & 57.64 & 57.77 & 57.96 & 60.10 & 0.19 & 0.32\\*
+Qwen3 & 45 & 57.64 & 57.56 & 58.09 & 60.10 & 0.53 & 0.45\\*
+Qwen3 & 46 & 57.64 & 57.64 & 57.91 & 60.10 & 0.27 & 0.27\\
+GLM 4 & 42 & 49.84 & 49.55 & 49.39 & 50.08 & -0.16 & -0.45\\*
+GLM 4 & 43 & 49.84 & 49.63 & 49.39 & 50.08 & -0.24 & -0.45\\*
+GLM 4 & 44 & 49.84 & 49.41 & 49.57 & 50.08 & 0.16 & -0.27\\*
+GLM 4 & 45 & 49.84 & 49.41 & 49.60 & 50.08 & 0.19 & -0.24\\*
+GLM 4 & 46 & 49.84 & 49.31 & 49.76 & 50.08 & 0.45 & -0.08\\
+\end{longtable}}
+
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{lrrrrrrr}
+\caption{MedQA $\to$ MedMCQA: calibration-pool resampling original RStd (pp). Contrasts are in pp, and the fixed target holdout has $N=3744$.}\label{tab:pool-medqa-rstd}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endfirsthead
+\multicolumn{8}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endhead
+\midrule\multicolumn{8}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & 42 & 7.79 & 3.29 & 5.35 & 1.93 & 2.06 & -2.44\\*
+Llama 3.1 & 43 & 7.79 & 2.98 & 3.11 & 1.93 & 0.13 & -4.68\\*
+Llama 3.1 & 44 & 7.79 & 2.54 & 4.10 & 1.93 & 1.56 & -3.68\\*
+Llama 3.1 & 45 & 7.79 & 2.87 & 4.10 & 1.93 & 1.24 & -3.68\\*
+Llama 3.1 & 46 & 7.79 & 2.54 & 4.06 & 1.93 & 1.52 & -3.72\\
+Qwen2.5 & 42 & 4.80 & 2.48 & 3.35 & 0.94 & 0.87 & -1.45\\*
+Qwen2.5 & 43 & 4.80 & 2.90 & 4.11 & 0.94 & 1.21 & -0.69\\*
+Qwen2.5 & 44 & 4.80 & 2.95 & 4.03 & 0.94 & 1.08 & -0.77\\*
+Qwen2.5 & 45 & 4.80 & 1.97 & 3.95 & 0.94 & 1.98 & -0.85\\*
+Qwen2.5 & 46 & 4.80 & 2.38 & 3.23 & 0.94 & 0.85 & -1.57\\
+Gemma 2 & 42 & 25.48 & 13.91 & 21.65 & 3.44 & 7.74 & -3.83\\*
+Gemma 2 & 43 & 25.48 & 14.07 & 21.29 & 3.44 & 7.22 & -4.18\\*
+Gemma 2 & 44 & 25.48 & 13.87 & 22.07 & 3.44 & 8.20 & -3.40\\*
+Gemma 2 & 45 & 25.48 & 13.44 & 21.65 & 3.44 & 8.21 & -3.83\\*
+Gemma 2 & 46 & 25.48 & 12.34 & 21.65 & 3.44 & 9.31 & -3.82\\
+Mistral & 42 & 5.22 & 2.92 & 4.67 & 1.87 & 1.75 & -0.55\\*
+Mistral & 43 & 5.22 & 3.39 & 3.98 & 1.87 & 0.60 & -1.23\\*
+Mistral & 44 & 5.22 & 3.21 & 5.01 & 1.87 & 1.81 & -0.20\\*
+Mistral & 45 & 5.22 & 2.80 & 5.11 & 1.87 & 2.31 & -0.10\\*
+Mistral & 46 & 5.22 & 2.86 & 4.16 & 1.87 & 1.29 & -1.06\\
+Qwen3 & 42 & 3.56 & 3.27 & 2.14 & 1.14 & -1.13 & -1.42\\*
+Qwen3 & 43 & 3.56 & 3.65 & 2.55 & 1.14 & -1.10 & -1.01\\*
+Qwen3 & 44 & 3.56 & 2.92 & 2.41 & 1.14 & -0.51 & -1.15\\*
+Qwen3 & 45 & 3.56 & 3.63 & 2.28 & 1.14 & -1.35 & -1.28\\*
+Qwen3 & 46 & 3.56 & 3.13 & 2.36 & 1.14 & -0.77 & -1.20\\
+GLM 4 & 42 & 10.57 & 1.95 & 4.00 & 1.32 & 2.04 & -6.57\\*
+GLM 4 & 43 & 10.57 & 1.47 & 3.14 & 1.32 & 1.67 & -7.43\\*
+GLM 4 & 44 & 10.57 & 2.66 & 3.30 & 1.32 & 0.64 & -7.27\\*
+GLM 4 & 45 & 10.57 & 2.42 & 3.31 & 1.32 & 0.89 & -7.25\\*
+GLM 4 & 46 & 10.57 & 2.31 & 2.75 & 1.32 & 0.45 & -7.81\\
+\end{longtable}}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedMCQA $\to$ MedQA: equal-source-budget endpoints. Source fit: $n=63$. Target fit: $n=63$. Target holdout: $N=1210$.}\label{tab:eq-endpoints-medmcqa}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & $A_D$ & $R_D$ & $A_I$ & $R_I$ & $A_T$ & $R_T$\\
+\midrule
+Llama 3.1 & 64.63 & 5.17 & 64.88 & 3.54 & 63.14 & 5.47\\
+Qwen2.5 & 60.50 & 3.81 & 60.66 & 2.69 & 60.33 & 2.82\\
+Gemma 2 & 51.57 & 8.65 & 51.74 & 6.30 & 50.50 & 5.83\\
+Mistral & 51.49 & 2.65 & 51.82 & 6.48 & 50.66 & 7.14\\
+Qwen3 & 63.06 & 5.95 & 63.47 & 4.86 & 63.14 & 7.21\\
+GLM 4 & 53.80 & 10.45 & 56.28 & 5.18 & 55.95 & 4.96\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{.98\linewidth}\footnotesize Accuracy $A$ is in percent, and $R$ is original RStd in pp. The Default, in-domain and CPA endpoints are unchanged from the primary paired target comparison.\end{minipage}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedMCQA $\to$ MedQA: equal-budget contrasts and change from the primary source prior, all in pp.}\label{tab:eq-contrasts-medmcqa}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & $A_T-A_I$ & $A_T-A_D$ & $R_T-R_I$ & $R_T-R_D$ & $\Delta A_T$ & $\Delta R_T$\\
+\midrule
+Llama 3.1 & -1.74 & -1.49 & 1.93 & 0.30 & 0.08 & -0.76\\
+Qwen2.5 & -0.33 & -0.17 & 0.13 & -0.99 & 0.25 & -0.41\\
+Gemma 2 & -1.24 & -1.07 & -0.47 & -2.82 & 0.00 & 0.00\\
+Mistral & -1.16 & -0.83 & 0.66 & 4.48 & 0.08 & 0.02\\
+Qwen3 & -0.33 & 0.08 & 2.35 & 1.27 & -0.33 & -0.19\\
+GLM 4 & -0.33 & 2.15 & -0.22 & -5.49 & 0.00 & -0.11\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedMCQA $\to$ MedQA: option-ID prior from the 63-question source subset (probability units). Target priors remain those in Figure~\ref{fig:medical-priors}.}\label{tab:eq-prior-medmcqa}
+\begin{tabular}{lrrrr}
+\toprule
+Model & A & B & C & D\\
+\midrule
+Llama 3.1 & 0.29498 & 0.37320 & 0.17979 & 0.15203\\
+Qwen2.5 & 0.43141 & 0.14772 & 0.08059 & 0.34028\\
+Gemma 2 & 0.76701 & 0.10615 & 0.05723 & 0.06960\\
+Mistral & 0.41866 & 0.14059 & 0.25541 & 0.18534\\
+Qwen3 & 0.26905 & 0.11526 & 0.12285 & 0.49284\\
+GLM 4 & 0.27027 & 0.39600 & 0.17090 & 0.16284\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{lrrrrrrr}
+\caption{MedMCQA $\to$ MedQA: calibration-pool resampling accuracy (percent). Contrasts are in pp, and the fixed target holdout has $N=1210$.}\label{tab:pool-medmcqa-accuracy}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endfirsthead
+\multicolumn{8}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endhead
+\midrule\multicolumn{8}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & 42 & 64.63 & 64.88 & 62.89 & 65.95 & -1.98 & -1.74\\*
+Llama 3.1 & 43 & 64.63 & 64.63 & 63.06 & 65.95 & -1.57 & -1.57\\*
+Llama 3.1 & 44 & 64.63 & 64.88 & 63.14 & 65.95 & -1.74 & -1.49\\*
+Llama 3.1 & 45 & 64.63 & 64.88 & 63.22 & 65.95 & -1.65 & -1.40\\*
+Llama 3.1 & 46 & 64.63 & 64.79 & 63.14 & 65.95 & -1.65 & -1.49\\
+Qwen2.5 & 42 & 60.50 & 60.74 & 60.25 & 62.48 & -0.50 & -0.25\\*
+Qwen2.5 & 43 & 60.50 & 60.17 & 60.00 & 62.48 & -0.17 & -0.50\\*
+Qwen2.5 & 44 & 60.50 & 60.83 & 60.00 & 62.48 & -0.83 & -0.50\\*
+Qwen2.5 & 45 & 60.50 & 60.58 & 60.33 & 62.48 & -0.25 & -0.17\\*
+Qwen2.5 & 46 & 60.50 & 60.66 & 60.25 & 62.48 & -0.41 & -0.25\\
+Gemma 2 & 42 & 51.57 & 51.90 & 50.25 & 51.16 & -1.65 & -1.32\\*
+Gemma 2 & 43 & 51.57 & 51.65 & 50.41 & 51.16 & -1.24 & -1.16\\*
+Gemma 2 & 44 & 51.57 & 51.98 & 50.33 & 51.16 & -1.65 & -1.24\\*
+Gemma 2 & 45 & 51.57 & 51.74 & 50.66 & 51.16 & -1.07 & -0.91\\*
+Gemma 2 & 46 & 51.57 & 51.65 & 49.83 & 51.16 & -1.82 & -1.74\\
+Mistral & 42 & 51.49 & 51.57 & 50.74 & 53.88 & -0.83 & -0.74\\*
+Mistral & 43 & 51.49 & 51.16 & 50.50 & 53.88 & -0.66 & -0.99\\*
+Mistral & 44 & 51.49 & 51.49 & 50.91 & 53.88 & -0.58 & -0.58\\*
+Mistral & 45 & 51.49 & 51.65 & 50.58 & 53.88 & -1.07 & -0.91\\*
+Mistral & 46 & 51.49 & 51.90 & 50.50 & 53.88 & -1.40 & -0.99\\
+Qwen3 & 42 & 63.06 & 63.64 & 63.55 & 65.29 & -0.08 & 0.50\\*
+Qwen3 & 43 & 63.06 & 63.39 & 63.39 & 65.29 & 0.00 & 0.33\\*
+Qwen3 & 44 & 63.06 & 63.47 & 63.06 & 65.29 & -0.41 & 0.00\\*
+Qwen3 & 45 & 63.06 & 63.55 & 63.39 & 65.29 & -0.17 & 0.33\\*
+Qwen3 & 46 & 63.06 & 63.39 & 63.47 & 65.29 & 0.08 & 0.41\\
+GLM 4 & 42 & 53.80 & 56.03 & 56.12 & 57.93 & 0.08 & 2.31\\*
+GLM 4 & 43 & 53.80 & 56.36 & 56.28 & 57.93 & -0.08 & 2.48\\*
+GLM 4 & 44 & 53.80 & 56.12 & 55.87 & 57.93 & -0.25 & 2.07\\*
+GLM 4 & 45 & 53.80 & 56.53 & 55.95 & 57.93 & -0.58 & 2.15\\*
+GLM 4 & 46 & 53.80 & 56.28 & 55.95 & 57.93 & -0.33 & 2.15\\
+\end{longtable}}
+
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{lrrrrrrr}
+\caption{MedMCQA $\to$ MedQA: calibration-pool resampling original RStd (pp). Contrasts are in pp, and the fixed target holdout has $N=1210$.}\label{tab:pool-medmcqa-rstd}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endfirsthead
+\multicolumn{8}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Draw & $D$ & $I$ & $T$ & CPA & $T-I$ & $T-D$\\
+\midrule
+\endhead
+\midrule\multicolumn{8}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & 42 & 5.17 & 3.32 & 6.04 & 1.93 & 2.72 & 0.87\\*
+Llama 3.1 & 43 & 5.17 & 3.34 & 6.23 & 1.93 & 2.88 & 1.06\\*
+Llama 3.1 & 44 & 5.17 & 3.54 & 5.34 & 1.93 & 1.80 & 0.17\\*
+Llama 3.1 & 45 & 5.17 & 3.54 & 5.25 & 1.93 & 1.71 & 0.08\\*
+Llama 3.1 & 46 & 5.17 & 3.27 & 5.34 & 1.93 & 2.07 & 0.17\\
+Qwen2.5 & 42 & 3.81 & 2.63 & 2.81 & 2.10 & 0.18 & -1.00\\*
+Qwen2.5 & 43 & 3.81 & 3.67 & 3.33 & 2.10 & -0.34 & -0.48\\*
+Qwen2.5 & 44 & 3.81 & 2.79 & 3.33 & 2.10 & 0.54 & -0.48\\*
+Qwen2.5 & 45 & 3.81 & 3.25 & 2.67 & 2.10 & -0.58 & -1.14\\*
+Qwen2.5 & 46 & 3.81 & 2.79 & 2.66 & 2.10 & -0.12 & -1.15\\
+Gemma 2 & 42 & 8.65 & 6.34 & 6.17 & 2.79 & -0.17 & -2.47\\*
+Gemma 2 & 43 & 8.65 & 6.26 & 5.88 & 2.79 & -0.38 & -2.77\\*
+Gemma 2 & 44 & 8.65 & 6.55 & 6.06 & 2.79 & -0.49 & -2.59\\*
+Gemma 2 & 45 & 8.65 & 6.30 & 5.47 & 2.79 & -0.83 & -3.18\\*
+Gemma 2 & 46 & 8.65 & 6.26 & 7.02 & 2.79 & 0.76 & -1.63\\
+Mistral & 42 & 2.65 & 5.85 & 7.02 & 2.23 & 1.18 & 4.37\\*
+Mistral & 43 & 2.65 & 6.73 & 7.00 & 2.23 & 0.27 & 4.35\\*
+Mistral & 44 & 2.65 & 5.25 & 6.79 & 2.23 & 1.54 & 4.14\\*
+Mistral & 45 & 2.65 & 6.35 & 7.24 & 2.23 & 0.89 & 4.59\\*
+Mistral & 46 & 2.65 & 5.72 & 6.99 & 2.23 & 1.27 & 4.34\\
+Qwen3 & 42 & 5.95 & 5.31 & 6.91 & 2.76 & 1.60 & 0.96\\*
+Qwen3 & 43 & 5.95 & 4.94 & 7.72 & 2.76 & 2.77 & 1.77\\*
+Qwen3 & 44 & 5.95 & 4.96 & 6.83 & 2.76 & 1.87 & 0.88\\*
+Qwen3 & 45 & 5.95 & 4.31 & 7.61 & 2.76 & 3.30 & 1.66\\*
+Qwen3 & 46 & 5.95 & 4.94 & 7.14 & 2.76 & 2.20 & 1.19\\
+GLM 4 & 42 & 10.45 & 6.04 & 4.69 & 1.78 & -1.35 & -5.76\\*
+GLM 4 & 43 & 10.45 & 5.57 & 4.24 & 1.78 & -1.32 & -6.20\\*
+GLM 4 & 44 & 10.45 & 4.97 & 5.60 & 1.78 & 0.62 & -4.85\\*
+GLM 4 & 45 & 10.45 & 5.44 & 5.97 & 1.78 & 0.52 & -4.48\\*
+GLM 4 & 46 & 10.45 & 5.18 & 5.02 & 1.78 & -0.15 & -5.42\\
+\end{longtable}}
+
+
+\FloatBarrier\subsubsection{Frozen-prior corrected cyclic endpoints}\label{app:robustness-permutation}
+
+Calibration uses the first existing path-seeded draw, with source-path bytes seeding the sequential shuffle as in the primary hybrid protocol. Only its complement is evaluated. A single prior is applied as $\log(p+10^{-10})-\log(\pi+10^{-10})$ in displayed-label space at every shift, followed by first-maximum selection and the permanent-content mapping. Cycles are complete: four per item, or five for CSQA. The calibration sets have no overlap with these evaluation sets. Membership may differ between models and from the medical seed-42 transfer holdouts.
+
+In Tables~\ref{tab:corrected-mmlu}--\ref{tab:corrected-medmcqa}, $A_0$ is original-order accuracy, $R_0$ original RStd, $R_{\rm cyc}$ cyclic RStd, $\bar A$ mean per-shift accuracy, and $S$ and range describe per-shift accuracy. $C$ is all-shift semantic consistency. Rows $D$ and $P$ use identical holdout questions. Row $P$ is pure frozen-prior PriDe, not the full-population hybrid. Accuracy/consistency are percent and all dispersion quantities are pp. All models retain the previously declared first-maximum and additive-epsilon conventions. CPA is not a per-shift accuracy average, and its deterministic complete-orbit invariance is an aggregation property.
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MMLU: complete heldout before/after cyclic metrics. Calibration: $n=679$. Evaluation: $N=12913$.}\label{tab:corrected-mmlu}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Model &  & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $\bar A$ & $S$ & Range & $C$\\
+\midrule
+Llama 3.1 & D & 68.02 & 4.81 & 4.38 & 65.60 & 1.40 & 3.33 & 58.28\\
+Llama 3.1 & P & 68.14 & 3.80 & 2.68 & 65.62 & 1.46 & 3.61 & 58.79\\
+Qwen2.5 & D & 71.07 & 3.19 & 3.47 & 70.57 & 0.34 & 0.94 & 68.88\\
+Qwen2.5 & P & 71.27 & 3.54 & 3.12 & 70.71 & 0.46 & 1.20 & 69.30\\
+Gemma 2 & D & 53.84 & 13.19 & 12.85 & 53.33 & 0.35 & 0.97 & 35.97\\
+Gemma 2 & P & 55.34 & 7.41 & 7.10 & 54.84 & 0.50 & 1.20 & 38.93\\
+Mistral & D & 59.24 & 4.93 & 2.84 & 58.74 & 0.67 & 1.67 & 51.85\\
+Mistral & P & 59.30 & 1.33 & 2.52 & 58.70 & 0.74 & 1.60 & 50.34\\
+Qwen3 & D & 72.18 & 3.16 & 4.34 & 71.08 & 0.65 & 1.62 & 63.78\\
+Qwen3 & P & 72.18 & 3.69 & 3.56 & 71.36 & 0.52 & 1.29 & 64.65\\
+GLM 4 & D & 64.70 & 7.33 & 8.15 & 63.62 & 0.85 & 2.11 & 50.91\\
+GLM 4 & P & 65.24 & 2.29 & 2.74 & 64.50 & 0.58 & 1.53 & 55.29\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{ARC-C: complete heldout before/after cyclic metrics. Calibration: $n=58$. Evaluation: $N=1107$.}\label{tab:corrected-arc}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Model &  & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $\bar A$ & $S$ & Range & $C$\\
+\midrule
+Llama 3.1 & D & 83.38 & 2.19 & 3.35 & 83.33 & 0.80 & 2.26 & 78.32\\
+Llama 3.1 & P & 83.20 & 3.08 & 2.08 & 83.24 & 0.05 & 0.09 & 78.86\\
+Qwen2.5 & D & 89.43 & 3.22 & 1.91 & 89.50 & 0.30 & 0.81 & 87.35\\
+Qwen2.5 & P & 89.70 & 2.57 & 1.70 & 89.66 & 0.35 & 0.99 & 87.90\\
+Gemma 2 & D & 67.66 & 14.08 & 13.33 & 69.11 & 1.15 & 2.62 & 48.06\\
+Gemma 2 & P & 70.28 & 10.50 & 9.03 & 71.16 & 0.72 & 1.72 & 54.02\\
+Mistral & D & 77.87 & 3.82 & 3.09 & 76.81 & 0.93 & 2.44 & 67.12\\
+Mistral & P & 77.87 & 2.13 & 2.87 & 76.74 & 0.88 & 2.44 & 66.67\\
+Qwen3 & D & 91.78 & 1.71 & 0.32 & 91.53 & 0.20 & 0.54 & 88.80\\
+Qwen3 & P & 91.87 & 0.85 & 1.42 & 91.26 & 0.42 & 1.17 & 87.53\\
+GLM 4 & D & 87.71 & 2.92 & 4.79 & 86.45 & 0.77 & 2.08 & 75.79\\
+GLM 4 & P & 88.17 & 1.64 & 2.30 & 86.97 & 0.93 & 2.35 & 78.50\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{CSQA: complete heldout before/after cyclic metrics. Calibration: $n=60$. Evaluation: $N=1156$.}\label{tab:corrected-csqa}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Model &  & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $\bar A$ & $S$ & Range & $C$\\
+\midrule
+Llama 3.1 & D & 76.30 & 3.32 & 1.70 & 76.56 & 0.37 & 1.04 & 71.19\\
+Llama 3.1 & P & 76.64 & 2.62 & 0.70 & 76.71 & 0.55 & 1.56 & 71.71\\
+Qwen2.5 & D & 83.65 & 1.82 & 0.69 & 83.18 & 0.48 & 1.21 & 79.67\\
+Qwen2.5 & P & 84.17 & 1.78 & 1.65 & 83.32 & 0.56 & 1.47 & 79.84\\
+Gemma 2 & D & 56.14 & 16.63 & 15.20 & 57.11 & 0.74 & 1.99 & 32.53\\
+Gemma 2 & P & 59.08 & 11.37 & 10.01 & 59.10 & 0.30 & 0.87 & 36.07\\
+Mistral & D & 69.72 & 6.09 & 5.20 & 70.36 & 0.74 & 1.82 & 59.00\\
+Mistral & P & 71.45 & 3.12 & 2.08 & 71.21 & 0.77 & 2.25 & 60.12\\
+Qwen3 & D & 80.97 & 4.27 & 4.67 & 81.14 & 0.28 & 0.61 & 70.76\\
+Qwen3 & P & 80.45 & 4.61 & 4.77 & 80.93 & 0.61 & 1.47 & 69.38\\
+GLM 4 & D & 78.81 & 11.65 & 11.12 & 78.43 & 0.62 & 1.64 & 55.80\\
+GLM 4 & P & 82.70 & 5.92 & 5.73 & 80.71 & 1.08 & 3.03 & 64.19\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedQA: complete heldout before/after cyclic metrics. Calibration: $n=63$. Evaluation: $N=1210$.}\label{tab:corrected-medqa}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Model &  & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $\bar A$ & $S$ & Range & $C$\\
+\midrule
+Llama 3.1 & D & 64.55 & 5.49 & 4.26 & 65.00 & 0.77 & 1.98 & 66.20\\
+Llama 3.1 & P & 65.04 & 2.68 & 1.25 & 65.02 & 0.59 & 1.49 & 68.02\\
+Qwen2.5 & D & 60.58 & 4.40 & 4.81 & 60.41 & 0.86 & 2.40 & 64.05\\
+Qwen2.5 & P & 60.58 & 2.95 & 3.66 & 60.72 & 0.69 & 1.90 & 65.87\\
+Gemma 2 & D & 51.98 & 9.04 & 7.43 & 49.92 & 1.55 & 4.21 & 48.26\\
+Gemma 2 & P & 51.90 & 6.53 & 4.13 & 50.08 & 1.13 & 2.98 & 48.93\\
+Mistral & D & 51.65 & 2.65 & 1.96 & 52.29 & 0.63 & 1.65 & 50.91\\
+Mistral & P & 51.90 & 5.72 & 5.29 & 52.44 & 0.61 & 1.49 & 48.10\\
+Qwen3 & D & 63.22 & 4.80 & 6.50 & 62.83 & 0.26 & 0.66 & 59.42\\
+Qwen3 & P & 63.39 & 4.65 & 3.55 & 63.53 & 0.12 & 0.33 & 63.06\\
+GLM 4 & D & 53.22 & 10.47 & 9.63 & 54.15 & 1.20 & 2.81 & 45.79\\
+GLM 4 & P & 55.70 & 4.46 & 2.91 & 55.04 & 1.33 & 3.55 & 52.40\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{MedMCQA: complete heldout before/after cyclic metrics. Calibration: $n=197$. Evaluation: $N=3744$.}\label{tab:corrected-medmcqa}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Model &  & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $\bar A$ & $S$ & Range & $C$\\
+\midrule
+Llama 3.1 & D & 59.11 & 7.50 & 7.32 & 58.09 & 0.75 & 2.03 & 53.21\\
+Llama 3.1 & P & 59.11 & 3.20 & 3.43 & 58.78 & 0.71 & 1.92 & 57.10\\
+Qwen2.5 & D & 56.12 & 5.18 & 5.72 & 54.99 & 0.92 & 2.51 & 53.15\\
+Qwen2.5 & P & 55.72 & 3.05 & 3.94 & 55.12 & 0.62 & 1.55 & 54.70\\
+Gemma 2 & D & 40.89 & 25.41 & 24.09 & 36.16 & 2.81 & 7.24 & 13.62\\
+Gemma 2 & P & 41.00 & 12.50 & 11.40 & 38.76 & 1.34 & 3.55 & 19.28\\
+Mistral & D & 48.00 & 5.37 & 5.08 & 46.47 & 1.04 & 2.72 & 42.15\\
+Mistral & P & 47.54 & 3.46 & 2.96 & 46.70 & 0.90 & 2.35 & 42.65\\
+Qwen3 & D & 57.67 & 3.75 & 4.12 & 57.83 & 0.42 & 1.07 & 53.69\\
+Qwen3 & P & 57.75 & 3.15 & 3.47 & 57.90 & 0.25 & 0.61 & 53.66\\
+GLM 4 & D & 50.24 & 10.48 & 10.29 & 47.78 & 2.14 & 4.73 & 36.22\\
+GLM 4 & P & 49.87 & 1.84 & 1.83 & 48.41 & 1.04 & 2.91 & 41.00\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\FloatBarrier\paragraph{All exceptions to the dominant corrected pattern.} Cyclic RStd increases for Qwen2.5 on CSQA, Mistral on MedQA, and Qwen3 on ARC-C and CSQA. Consistency decreases for Mistral on MMLU, ARC-C and MedQA, and Qwen3 on ARC-C, CSQA and MedMCQA. There are no ties in either endpoint across the 30 pairs. The counts 26/30 and 24/30 use strict signs of unrounded values, not the displayed two-decimal cells. Exact consistency gains minus losses give the same signs. The Qwen3 MedMCQA decrease is one question, approximately 0.027 pp. These counts carry no significance claim.
+
+\subsubsection{MMLU medical-subject sensitivity}\label{app:robustness-mmlu}
+
+The core group includes exactly \path{anatomy}, \path{clinical_knowledge}, \path{college_medicine}, \path{medical_genetics} and \path{professional_medicine}. The broad group additionally includes \path{human_aging}, \path{nutrition} and \path{virology}. These topic-name definitions were stored before computing subgroup outcomes, not selected to maximize a performance contrast. They are transparent analytical classifications rather than a claim that all remaining subjects are nonmedical: related biology and psychology remain outside both definitions.
+
+Table~\ref{tab:mmlu-subject-membership} lists all 57 names and full gold supports. Core marks inclusion in both medical groups, B inclusion only in the broad group, and Rest exclusion from both. Thus it also specifies every excluded name. The core medical/full complement sizes are 939/12,653, with gold supports $(198,222,210,309)$ and $(2934,3167,3287,3265)$. Broad sizes are 1,604/11,988, with supports $(382,427,360,435)$ and $(2750,2962,3137,3139)$. Every printed group and subject has positive original-label support.
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{p{.49\textwidth}rrrrrl}
+\caption{All retained MMLU subjects: population size, original gold-label supports A--D and grouping membership.}\label{tab:mmlu-subject-membership}\\
+\toprule
+Subject & $N$ & A & B & C & D & Group\\
+\midrule
+\endfirsthead
+\multicolumn{7}{l}{\small Table \thetable\ continued}\\
+\toprule
+Subject & $N$ & A & B & C & D & Group\\
+\midrule
+\endhead
+\midrule\multicolumn{7}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\path{abstract_algebra} & 100 & 22 & 26 & 31 & 21 & Rest\\
+\path{anatomy} & 134 & 25 & 34 & 45 & 30 & Core\\
+\path{astronomy} & 143 & 25 & 28 & 46 & 44 & Rest\\
+\path{business_ethics} & 100 & 30 & 26 & 23 & 21 & Rest\\
+\path{clinical_knowledge} & 262 & 57 & 71 & 57 & 77 & Core\\
+\path{college_biology} & 144 & 37 & 32 & 37 & 38 & Rest\\
+\path{college_chemistry} & 100 & 20 & 21 & 18 & 41 & Rest\\
+\path{college_computer_science} & 99 & 26 & 15 & 26 & 32 & Rest\\
+\path{college_mathematics} & 99 & 21 & 23 & 25 & 30 & Rest\\
+\path{college_medicine} & 171 & 36 & 36 & 43 & 56 & Core\\
+\path{college_physics} & 102 & 22 & 20 & 22 & 38 & Rest\\
+\path{computer_security} & 96 & 27 & 23 & 30 & 16 & Rest\\
+\path{conceptual_physics} & 234 & 61 & 76 & 48 & 49 & Rest\\
+\path{econometrics} & 114 & 27 & 32 & 28 & 27 & Rest\\
+\path{electrical_engineering} & 112 & 28 & 26 & 35 & 23 & Rest\\
+\path{elementary_mathematics} & 378 & 79 & 97 & 101 & 101 & Rest\\
+\path{formal_logic} & 119 & 33 & 24 & 19 & 43 & Rest\\
+\path{global_facts} & 99 & 18 & 31 & 33 & 17 & Rest\\
+\path{high_school_biology} & 304 & 54 & 79 & 78 & 93 & Rest\\
+\path{high_school_chemistry} & 200 & 31 & 54 & 60 & 55 & Rest\\
+\path{high_school_computer_science} & 95 & 23 & 22 & 31 & 19 & Rest\\
+\path{high_school_european_history} & 165 & 36 & 40 & 47 & 42 & Rest\\
+\path{high_school_geography} & 198 & 35 & 43 & 50 & 70 & Rest\\
+\path{high_school_government_and_politics} & 193 & 38 & 40 & 44 & 71 & Rest\\
+\path{high_school_macroeconomics} & 386 & 78 & 86 & 83 & 139 & Rest\\
+\path{high_school_mathematics} & 270 & 57 & 71 & 71 & 71 & Rest\\
+\path{high_school_microeconomics} & 236 & 50 & 55 & 49 & 82 & Rest\\
+\path{high_school_physics} & 149 & 29 & 30 & 41 & 49 & Rest\\
+\path{high_school_psychology} & 545 & 105 & 129 & 121 & 190 & Rest\\
+\path{high_school_statistics} & 202 & 32 & 34 & 46 & 90 & Rest\\
+\path{high_school_us_history} & 204 & 51 & 48 & 53 & 52 & Rest\\
+\path{high_school_world_history} & 237 & 64 & 62 & 63 & 48 & Rest\\
+\path{human_aging} & 219 & 69 & 83 & 45 & 22 & B\\
+\path{human_sexuality} & 113 & 31 & 30 & 30 & 22 & Rest\\
+\path{international_law} & 121 & 29 & 30 & 45 & 17 & Rest\\
+\path{jurisprudence} & 106 & 27 & 32 & 25 & 22 & Rest\\
+\path{logical_fallacies} & 160 & 35 & 40 & 48 & 37 & Rest\\
+\path{machine_learning} & 98 & 31 & 29 & 22 & 16 & Rest\\
+\path{management} & 102 & 18 & 26 & 20 & 38 & Rest\\
+\path{marketing} & 230 & 67 & 60 & 59 & 44 & Rest\\
+\path{medical_genetics} & 100 & 30 & 26 & 20 & 24 & Core\\
+\path{miscellaneous} & 783 & 186 & 225 & 212 & 160 & Rest\\
+\path{moral_disputes} & 209 & 54 & 52 & 60 & 43 & Rest\\
+\path{moral_scenarios} & 895 & 213 & 217 & 221 & 244 & Rest\\
+\path{nutrition} & 291 & 68 & 70 & 71 & 82 & B\\
+\path{philosophy} & 266 & 50 & 76 & 81 & 59 & Rest\\
+\path{prehistory} & 294 & 63 & 81 & 91 & 59 & Rest\\
+\path{professional_accounting} & 281 & 65 & 72 & 76 & 68 & Rest\\
+\path{professional_law} & 1531 & 377 & 367 & 415 & 372 & Rest\\
+\path{professional_medicine} & 272 & 50 & 55 & 45 & 122 & Core\\
+\path{professional_psychology} & 608 & 153 & 155 & 168 & 132 & Rest\\
+\path{public_relations} & 109 & 23 & 38 & 23 & 25 & Rest\\
+\path{security_studies} & 236 & 46 & 40 & 59 & 91 & Rest\\
+\path{sociology} & 179 & 48 & 47 & 48 & 36 & Rest\\
+\path{us_foreign_policy} & 75 & 20 & 16 & 25 & 14 & Rest\\
+\path{virology} & 155 & 47 & 52 & 34 & 22 & B\\
+\path{world_religions} & 169 & 55 & 36 & 50 & 28 & Rest\\
+\end{longtable}}
+
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{llrrrr}
+\caption{Full-population Default by MMLU grouping. M denotes the medical group, Rest its remaining-subject complement. Accuracy and consistency are in percent, whereas RStd is in pp.}\label{tab:mmlu-group-default}\\
+\toprule
+Model & Group & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $C$\\
+\midrule
+\endfirsthead
+\multicolumn{6}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Group & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $C$\\
+\midrule
+\endhead
+\midrule\multicolumn{6}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & Core M & 76.04 & 3.67 & 3.77 & 71.03\\
+Llama 3.1 & Core Rest & 67.40 & 4.65 & 4.36 & 57.45\\
+Qwen2.5 & Core M & 75.29 & 4.39 & 4.46 & 71.78\\
+Qwen2.5 & Core Rest & 70.67 & 3.29 & 3.45 & 68.58\\
+Gemma 2 & Core M & 55.59 & 15.47 & 15.39 & 38.45\\
+Gemma 2 & Core Rest & 53.68 & 13.10 & 12.63 & 35.92\\
+Mistral & Core M & 64.64 & 6.59 & 2.42 & 56.12\\
+Mistral & Core Rest & 58.67 & 4.91 & 2.89 & 51.64\\
+Qwen3 & Core M & 78.27 & 6.20 & 4.01 & 71.67\\
+Qwen3 & Core Rest & 71.63 & 3.33 & 4.40 & 63.17\\
+GLM 4 & Core M & 67.84 & 7.36 & 7.28 & 56.66\\
+GLM 4 & Core Rest & 64.49 & 7.38 & 8.20 & 50.45\\
+Llama 3.1 & Broad M & 73.19 & 3.29 & 3.63 & 70.70\\
+Llama 3.1 & Broad Rest & 67.30 & 4.70 & 4.42 & 56.74\\
+Qwen2.5 & Broad M & 73.19 & 4.98 & 4.14 & 73.88\\
+Qwen2.5 & Broad Rest & 70.70 & 3.39 & 3.46 & 68.13\\
+Gemma 2 & Broad M & 54.36 & 16.17 & 17.56 & 32.61\\
+Gemma 2 & Broad Rest & 53.74 & 12.83 & 12.19 & 36.56\\
+Mistral & Broad M & 63.59 & 5.32 & 1.85 & 57.73\\
+Mistral & Broad Rest & 58.48 & 5.00 & 3.00 & 51.18\\
+Qwen3 & Broad M & 75.00 & 6.15 & 3.30 & 71.13\\
+Qwen3 & Broad Rest & 71.70 & 3.41 & 4.50 & 62.77\\
+GLM 4 & Broad M & 66.71 & 6.00 & 7.33 & 57.11\\
+GLM 4 & Broad Rest & 64.46 & 7.52 & 8.26 & 50.04\\
+\end{longtable}}
+
+
+The following group corrections reuse the benchmark-wide first-draw MMLU prior. They do not fit a new prior per subject or group. Their heldout counts differ across models, and their before/after denominators must not be mixed with the full-population Default table. The full electronic table contains every group support vector and all 342 model--individual-subject rows, including their full Default and disjoint-heldout corrected metrics. Small individual subjects are descriptive context rather than independent tests of a medical-domain effect.
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{lllrrrrr}
+\caption{Core-five MMLU grouping: identical heldout group questions before (D) and after (P) benchmark-wide prior correction. $N$ is the actual group holdout size.}\label{tab:mmlu-heldout-core5}\\
+\toprule
+Model & Group &  & $N$ & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $C$\\
+\midrule
+\endfirsthead
+\multicolumn{8}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Group &  & $N$ & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $C$\\
+\midrule
+\endhead
+\midrule\multicolumn{8}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & M & D & 896 & 76.23 & 3.25 & 3.75 & 71.21\\*
+Llama 3.1 & M & P & 896 & 76.12 & 2.58 & 2.21 & 72.43\\
+Llama 3.1 & Rest & D & 12017 & 67.41 & 5.04 & 4.43 & 57.32\\*
+Llama 3.1 & Rest & P & 12017 & 67.55 & 4.03 & 2.72 & 57.77\\
+Qwen2.5 & M & D & 890 & 75.62 & 4.29 & 4.50 & 71.91\\*
+Qwen2.5 & M & P & 890 & 74.94 & 3.73 & 3.60 & 72.70\\
+Qwen2.5 & Rest & D & 12023 & 70.73 & 3.18 & 3.42 & 68.65\\*
+Qwen2.5 & Rest & P & 12023 & 71.00 & 3.69 & 3.15 & 69.05\\
+Gemma 2 & M & D & 890 & 55.06 & 15.95 & 15.59 & 37.64\\*
+Gemma 2 & M & P & 890 & 55.84 & 10.85 & 10.50 & 41.57\\
+Gemma 2 & Rest & D & 12023 & 53.76 & 13.09 & 12.66 & 35.85\\*
+Gemma 2 & Rest & P & 12023 & 55.30 & 7.36 & 6.87 & 38.73\\
+Mistral & M & D & 890 & 65.06 & 6.89 & 2.32 & 55.84\\*
+Mistral & M & P & 890 & 64.27 & 2.28 & 2.97 & 54.49\\
+Mistral & Rest & D & 12023 & 58.81 & 4.88 & 2.89 & 51.56\\*
+Mistral & Rest & P & 12023 & 58.94 & 1.52 & 2.50 & 50.04\\
+Qwen3 & M & D & 896 & 78.24 & 6.04 & 3.95 & 71.65\\*
+Qwen3 & M & P & 896 & 77.90 & 4.49 & 3.24 & 72.77\\
+Qwen3 & Rest & D & 12017 & 71.72 & 3.24 & 4.40 & 63.19\\*
+Qwen3 & Rest & P & 12017 & 71.75 & 4.12 & 3.61 & 64.04\\
+GLM 4 & M & D & 897 & 68.23 & 7.14 & 7.46 & 56.74\\*
+GLM 4 & M & P & 897 & 69.68 & 2.94 & 3.05 & 60.42\\
+GLM 4 & Rest & D & 12016 & 64.44 & 7.40 & 8.21 & 50.47\\*
+GLM 4 & Rest & P & 12016 & 64.91 & 2.31 & 2.76 & 54.90\\
+\end{longtable}}
+
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{lllrrrrr}
+\caption{Broad-eight MMLU grouping: identical heldout group questions before (D) and after (P) benchmark-wide prior correction. $N$ is the actual group holdout size.}\label{tab:mmlu-heldout-broad8}\\
+\toprule
+Model & Group &  & $N$ & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $C$\\
+\midrule
+\endfirsthead
+\multicolumn{8}{l}{\small Table \thetable\ continued}\\
+\toprule
+Model & Group &  & $N$ & $A_0$ & $R_0$ & $R_{\rm cyc}$ & $C$\\
+\midrule
+\endhead
+\midrule\multicolumn{8}{r}{\small Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Llama 3.1 & M & D & 1534 & 73.40 & 3.17 & 3.64 & 70.80\\*
+Llama 3.1 & M & P & 1534 & 72.75 & 2.47 & 1.86 & 71.84\\
+Llama 3.1 & Rest & D & 11379 & 67.30 & 5.09 & 4.49 & 56.60\\*
+Llama 3.1 & Rest & P & 11379 & 67.52 & 4.07 & 2.81 & 57.03\\
+Qwen2.5 & M & D & 1517 & 73.30 & 4.79 & 4.10 & 74.03\\*
+Qwen2.5 & M & P & 1517 & 73.30 & 4.13 & 3.27 & 74.49\\
+Qwen2.5 & Rest & D & 11396 & 70.77 & 3.26 & 3.44 & 68.19\\*
+Qwen2.5 & Rest & P & 11396 & 71.00 & 3.88 & 3.21 & 68.61\\
+Gemma 2 & M & D & 1525 & 54.03 & 16.41 & 17.70 & 32.07\\*
+Gemma 2 & M & P & 1525 & 54.89 & 11.36 & 12.58 & 36.85\\
+Gemma 2 & Rest & D & 11388 & 53.82 & 12.82 & 12.22 & 36.49\\*
+Gemma 2 & Rest & P & 11388 & 55.40 & 7.15 & 6.43 & 39.21\\
+Mistral & M & D & 1513 & 63.91 & 5.80 & 1.77 & 57.37\\*
+Mistral & M & P & 1513 & 64.04 & 1.84 & 2.35 & 56.71\\
+Mistral & Rest & D & 11400 & 58.62 & 4.95 & 3.00 & 51.12\\*
+Mistral & Rest & P & 11400 & 58.68 & 1.63 & 2.59 & 49.50\\
+Qwen3 & M & D & 1523 & 74.98 & 6.17 & 3.31 & 71.04\\*
+Qwen3 & M & P & 1523 & 74.39 & 4.23 & 2.62 & 71.77\\
+Qwen3 & Rest & D & 11390 & 71.80 & 3.34 & 4.50 & 62.81\\*
+Qwen3 & Rest & P & 11390 & 71.88 & 4.39 & 3.70 & 63.70\\
+GLM 4 & M & D & 1519 & 66.89 & 5.88 & 7.44 & 57.21\\*
+GLM 4 & M & P & 1519 & 67.94 & 1.66 & 2.87 & 61.55\\
+GLM 4 & Rest & D & 11394 & 64.41 & 7.53 & 8.26 & 50.07\\*
+GLM 4 & Rest & P & 11394 & 64.88 & 2.49 & 2.86 & 54.45\\
+\end{longtable}}
+
+
+\FloatBarrier

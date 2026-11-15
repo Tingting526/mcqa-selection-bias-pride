@@ -1,0 +1,21 @@
+% Structural revision: existing result cells copied exactly; no analysis rerun.
+\begin{table}[htbp]
+\centering\footnotesize\setlength{\tabcolsep}{2.5pt}
+\caption{Reference-benchmark accuracy (A, \%) and original RStd (R, pp). Each benchmark reports CPA and five-draw mean PriDe (5\%) on its full retained population. Default appears in Table~\ref{tab:rq1-default-overview}.}
+\label{tab:results-reference-combined}
+\begin{tabular}{l*{12}{r}}
+\toprule
+ & \multicolumn{4}{c}{MMLU} & \multicolumn{4}{c}{ARC-Challenge} & \multicolumn{4}{c}{CommonsenseQA}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}
+ & \multicolumn{2}{c}{CPA} & \multicolumn{2}{c}{PriDe (5\%)} & \multicolumn{2}{c}{CPA} & \multicolumn{2}{c}{PriDe (5\%)} & \multicolumn{2}{c}{CPA} & \multicolumn{2}{c}{PriDe (5\%)}\\
+Model & A & R & A & R & A & R & A & R & A & R & A & R\\
+\midrule
+Llama 3.1 8B & 67.64 & 2.62 & 68.15 & 3.48 & 85.49 & 0.70 & 83.40 & 2.33 & 78.29 & 1.70 & 76.55 & 2.13\\
+Qwen2.5 7B & 72.39 & 2.34 & 71.29 & 3.42 & 90.82 & 2.05 & 89.39 & 2.69 & 84.38 & 1.36 & 84.06 & 1.82\\
+Gemma 2 9B & 59.25 & 2.08 & 55.53 & 7.07 & 76.57 & 2.16 & 70.58 & 9.20 & 64.88 & 2.55 & 59.18 & 11.35\\
+Mistral 7B v0.3 & 61.04 & 4.76 & 59.26 & 1.68 & 80.43 & 1.41 & 77.91 & 1.87 & 73.60 & 2.97 & 70.72 & 4.08\\
+Qwen3 8B & 73.58 & 2.10 & 72.17 & 3.70 & 91.93 & 2.29 & 91.76 & 0.79 & 83.31 & 2.00 & 80.63 & 4.14\\
+GLM 4 9B & 67.56 & 1.43 & 65.40 & 2.42 & 89.70 & 2.09 & 88.17 & 1.47 & 84.29 & 2.78 & 81.96 & 6.79\\
+\bottomrule
+\end{tabular}
+\end{table}

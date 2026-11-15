@@ -1,0 +1,25 @@
+\begin{table}[htbp]
+\centering\small\setlength{\tabcolsep}{5pt}
+\caption{Sensitivity of transfer-minus-in-domain accuracy (pp). All methods retain the primary target holdouts: 3,744 MedMCQA or 1,210 MedQA questions.}\label{tab:robustness-transfer-summary}
+\begin{tabular}{lrrrrr}
+\toprule
+Model & Primary & Source 63 & Pool mean & Pool SD & Direction / 5\\
+\midrule
+\multicolumn{6}{l}{\textit{MedQA $\to$ MedMCQA}}\\
+Llama 3.1 & 0.03 & 0.03 & 0.16 & 0.18 & 4/5\\
+Qwen2.5 & 0.51 & 0.51 & 0.39 & 0.21 & 5/5\\
+Gemma 2 & 0.35 & 0.35 & 0.44 & 0.11 & 5/5\\
+Mistral & 0.72 & 0.72 & 0.53 & 0.15 & 5/5\\
+Qwen3 & 0.24 & 0.24 & 0.32 & 0.15 & 5/5\\
+GLM 4 & 0.16 & 0.16 & 0.08 & 0.28 & 3/5\\
+\multicolumn{6}{l}{\textit{MedMCQA $\to$ MedQA}}\\
+Llama 3.1 & -1.82 & -1.74 & -1.72 & 0.16 & 5/5\\
+Qwen2.5 & -0.58 & -0.33 & -0.43 & 0.26 & 5/5\\
+Gemma 2 & -1.24 & -1.24 & -1.49 & 0.31 & 5/5\\
+Mistral & -1.24 & -1.16 & -0.91 & 0.34 & 5/5\\
+Qwen3 & 0.00 & -0.33 & -0.12 & 0.19 & 3/5\\
+GLM 4 & -0.33 & -0.33 & -0.23 & 0.25 & 4/5\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{.98\linewidth}\footnotesize Source 63 changes only the source prior, using the nested randomized 63-question subset, while target fits remain 63/197. Pool columns instead resample both original pools with replacement at 63/197 draws, seeds 42--46. SD uses $n-1$ and is not a CI. Direction / 5 counts positive forward or negative reverse contrasts among the five draws. These are separate supplementary conditions.\end{minipage}
+\end{table}
