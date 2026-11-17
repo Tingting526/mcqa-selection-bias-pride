@@ -6,7 +6,7 @@ Code and derived results for the Bachelor's thesis *Selection Bias in Open-Weigh
 
 Appendix A.17 cites commit [`2fcfb67748413ae4d5059e42d18eced8837de686`](https://github.com/Tingting526/mcqa-selection-bias-pride/tree/2fcfb67748413ae4d5059e42d18eced8837de686). That exact snapshot remains available and is also tagged `thesis-cited-version`.
 
-The current branch adds installation, test, CSV-export and reproducibility fixes to that snapshot. The submitted result values, all 28 manuscript tables and the original numerical functions are unchanged. Use the commands below to reproduce the results with these portability fixes. `provenance/technical_revision.json` records the differences from the cited commit. The corrected code release is tagged `thesis-submission-2026-11-17`.
+The current branch adds installation, test, CSV-export and reproducibility fixes to that snapshot. The submitted result values, all 28 manuscript tables and the original numerical functions are unchanged. Use the commands below to reproduce the results with these portability fixes. `provenance/technical_revision.json` records the differences from the cited commit. The corrected code release is tagged `thesis-submission-2026-11-17-v2`.
 
 The thesis studies three questions:
 
@@ -66,7 +66,7 @@ node analysis/scripts/export_phase4_statistics.mjs analysis/outputs/phase4_20261
 node analysis/scripts/export_phase6_results.mjs analysis/outputs/phase6_robustness_20261018 analysis/outputs/csv-export/phase6
 ```
 
-These produce 14 primary-analysis tables, three statistical tables and four robustness tables. The robustness export includes both the 60 calibration-resampling rows and the 60 full-pool control rows. Its missing-value marker is `NA`; the other exports use empty fields. JSON manifests record the exported hashes. CSV export verifies the conversion, not the underlying raw observations.
+These produce 14 primary-analysis tables, three statistical tables and four robustness tables. The primary export also writes the 12 transfer JSON files referenced by `rq3_contrasts.csv` and records their hashes. Existing transfer files are retained if their parsed content matches the input; different results are never overwritten. The robustness export includes both the 60 calibration-resampling rows and the 60 full-pool control rows. Its missing-value marker is `NA`; the other exports use empty fields. JSON manifests record the exported hashes. CSV export verifies the conversion, not the underlying raw observations.
 
 ## Tests
 

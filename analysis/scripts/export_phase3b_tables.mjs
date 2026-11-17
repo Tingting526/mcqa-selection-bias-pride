@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import { writeMatrix, parseCSV } from './_csv.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -15,6 +16,20 @@ const sha=text=>crypto.createHash('sha256').update(text).digest('hex');
 const quote=value=>'"'+String(value??'').replaceAll('"','""')+'"';
 const cell=value=>value===null||value===undefined?'':typeof value==='object'?JSON.stringify(value):value;
 const manifest=[];
+const transferFiles=[];
+const transferPath=result=>path.join(output,'transfer',result.model,result.source+'_to_'+result.target+'.json');
+async function exportTransfer(result) {
+  const filename=transferPath(result);
+  let content=JSON.stringify(result,null,2)+'\n';
+  await fs.mkdir(path.dirname(filename),{recursive:true});
+  try { await fs.writeFile(filename,content,{flag:'wx'}); }
+  catch(error) {
+    if(error.code!=='EEXIST') throw error;
+    content=await fs.readFile(filename,'utf8');
+    if(!isDeepStrictEqual(JSON.parse(content),result)) throw new Error(`Refusing to overwrite different transfer result: ${filename}`);
+  }
+  transferFiles.push({path:filename,sha256:sha(content)});
+}
 async function exportMatrix(filename,matrix) {
   manifest.push(await writeMatrix(filename,matrix));
 }
@@ -46,11 +61,12 @@ if(results.transfer_results.length) {
   }
   await exportRows('tables/rq3_results.csv',rows);
   for(const result of results.transfer_results) {
+    await exportTransfer(result);
     contrasts.push({model:result.model,source:result.source,target:result.target,protocol:result.signature.protocol,
       source_estimation_n:result.source_partition.estimation.length,target_estimation_n:result.target_partition.estimation.length,target_heldout_n:result.target_partition.heldout.length,
       ...Object.fromEntries(Object.entries(result.contrasts).flatMap(([name,metrics])=>Object.entries(metrics).map(([metric,value])=>[`${name}_${metric}_pp`,value]))),
       denominator:'Identical target Tr for all methods',uncertainty:'Point estimates; no CI',
-      result_path:path.join(output,'transfer',result.model,result.source+'_to_'+result.target+'.json')});
+      result_path:transferPath(result)});
     for(const [role,dataset,prior,partition] of [['source',result.source,result.source_prior,result.source_partition],['target',result.target,result.target_prior,result.target_partition]]) {
       // One unique dataset prior per model; it is reused in the reverse direction.
       if(priors.some(p=>p.model===result.model&&p.benchmark===dataset)) continue;
@@ -101,7 +117,7 @@ if(updateLedger) {
     Object.assign(row,{experimental_block:'C: offline paired medical transfer',research_question:'RQ3',
       artifact_role:available.status==='completed_from_verified_raw'?'Verified paired transfer result':'Tested CPU implementation; empirical results blocked by raw recovery',
       model:available.model,benchmark:available.source+' -> '+available.target,protocol_version:'phase3b-medical-transfer-v1; current raw scores only',
-      dataset_population:available.target_n,summary_location:available.status==='completed_from_verified_raw'?path.join(output,'transfer',available.model,available.source+'_to_'+available.target+'.json'):'',
+      dataset_population:available.target_n,summary_location:available.status==='completed_from_verified_raw'?transferPath(available):'',
       scoring_configuration:'Cached current raw 2K-slot scores; no model inference',permutation_coverage:'Four complete cycles required on both medical benchmarks',
       prior_estimation_evidence:'Separate source/target estimation; sorted namespaced IDs; seed 42; floor(.05*N); epsilon 1e-10; target Te='+available.target_estimation_n+'; common Tr='+available.target_heldout_n,
       available_metrics:available.status==='completed_from_verified_raw'?'Default, in-domain, transfer, CPA; paired accuracy/RStd contrasts':'None empirical; synthetic tests passed',
@@ -125,11 +141,11 @@ if(updateLedger) {
   await fs.rename(staged,ledgerPath);
   manifest.at(-1).path=ledgerPath;
 }
-await fs.writeFile(path.join(output,'table_export_validation.json'),JSON.stringify({engine:'node:fs RFC4180 CSV',files:manifest},null,2)+'\n');
+await fs.writeFile(path.join(output,'table_export_validation.json'),JSON.stringify({engine:'node:fs RFC4180 CSV',files:manifest,transferFiles},null,2)+'\n');
 await fs.writeFile(path.join(output,'tables','table_metadata.json'),JSON.stringify({protocol:'original-open-clm-raw-prompt-1536',modelPanel:results.validation.map(v=>v.model).filter((v,i,a)=>a.indexOf(v)===i),
   populations:Object.fromEntries(results.validation.map(v=>[v.dataset,v.population_n])),units:'Accuracy/recall %, RStd/differences pp; semantic consistency fraction',
   primaryDenominator:'Full retained D, hybrid PriDe CPA on De + correction on Dr; transfer uses identical Tr for all four methods',
   calibration:'Five path-seeded draws for preserved results, SD ddof=0; new transfer seed-42 independent source/target partitions',
   uncertainty:'No confidence intervals or new significance tests executed',sourceResults:path.join(input,'analysis_results.json'),
-  verification:'CSV cells checked against the supplied derived JSON; this export does not revalidate raw observations.',files:manifest},null,2)+'\n');
-console.log(JSON.stringify({csvOutputs:manifest.length,rows:manifest.map(r=>({path:r.path,rows:r.rows}))}));
+  verification:'CSV cells checked against the supplied derived JSON; this export does not revalidate raw observations.',files:manifest,transferFiles},null,2)+'\n');
+console.log(JSON.stringify({csvOutputs:manifest.length,transferOutputs:transferFiles.length,rows:manifest.map(r=>({path:r.path,rows:r.rows}))}));

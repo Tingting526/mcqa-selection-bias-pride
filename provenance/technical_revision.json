@@ -7,7 +7,8 @@
     "Standard-library CSV exports and missing full-pool control data",
     "Pinned dataset revisions, download checksums, environment record and CI",
     "Non-destructive table wrapper, installation metadata and corrected documentation",
-    "Remove obsolete environment-specific installation instructions and figure import fallback"
+    "Remove obsolete environment-specific installation instructions and figure import fallback",
+    "Include the 12 transfer JSON files referenced by primary CSV exports and verify their preservation"
   ],
   "scientific_numerics_changed": false,
   "submitted_tables_changed": false,
@@ -30,7 +31,7 @@
     {
       "path": "README.md",
       "baseline_sha256": "be09ad5b84b4f4ac8d6d16189289b6569dca41877c94e890c76a33d2942140ff",
-      "current_sha256": "ccb83a1a12384fb7feb4977a392cfb531f3343716bf9c4892dc2c884c5927a96"
+      "current_sha256": "ece681a731df8bb22f7176e6106a15ebeb9bc0d49387c35e055f1a1fe292c6f6"
     },
     {
       "path": "analysis/README.md",
@@ -75,7 +76,7 @@
     {
       "path": "analysis/scripts/export_phase3b_tables.mjs",
       "baseline_sha256": "877c68151b10fa5c6cf7e37eb8816e70eb359627e59d4498ebc5865aa5cb4a0c",
-      "current_sha256": "e9f382720832042e04a58811b429fffc1a83f678f7b36de6e9bb18b912df7c30"
+      "current_sha256": "89d0880bbdd0bac3846fd24bc6edd5bbbc0a35c2d261bac455941fe0b1fdcdf3"
     },
     {
       "path": "analysis/scripts/export_phase4_statistics.mjs",
@@ -110,7 +111,7 @@
     {
       "path": "analysis/tests/csv.test.mjs",
       "baseline_sha256": null,
-      "current_sha256": "348e6803c3db0c25fde6ddbbb1638a3998757516ff431abf7b113e66507245a8"
+      "current_sha256": "435f13b5163faf4272bf2d136ca6201901b5c00c02c6ebc4b8af339ba2942300"
     },
     {
       "path": "analysis/tests/test_offline_phase3b.py",
@@ -150,7 +151,7 @@
     {
       "path": "provenance/redactions.json",
       "baseline_sha256": "4ba50254cbe29aed0ddc4e1ee675d0532cb8cf518332e5841d4801735333c464",
-      "current_sha256": "09d3912533deb9c871ff5e232ff985dacc23715e03c6b156ae05d615a04035b6"
+      "current_sha256": "1597f1c3d14befee8b42557b164e1eced3c1a171a481c497a9a55b40e079dd56"
     },
     {
       "path": "provenance/results_manifest.json",
@@ -181,7 +182,7 @@
       "passed": 195,
       "deselected_gpu": 1
     },
-    "csv_tests_passed": 2,
+    "csv_tests_passed": 3,
     "byte_identical_tables": 28,
     "figure_entry_points_passed": 3,
     "scientific_input_hashes_verified": 42,
@@ -190,6 +191,7 @@
     "bootstrap_intervals_recomputed": 36,
     "editable_package_install": "passed",
     "remote_ci": "See the repository Actions run for this release commit.",
-    "new_gpu_inference": false
+    "new_gpu_inference": false,
+    "transfer_export_files_verified": 12
   }
 }

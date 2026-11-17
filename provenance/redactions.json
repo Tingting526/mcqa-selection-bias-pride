@@ -46,7 +46,7 @@
       "path": "analysis/scripts/export_phase3b_tables.mjs",
       "replacements": 1,
       "executed_sha256": "20f984e63705dde5f47ed9c0e1b19be056281595548df5b8a6ef82bf347352bd",
-      "published_sha256": "e9f382720832042e04a58811b429fffc1a83f678f7b36de6e9bb18b912df7c30",
+      "published_sha256": "89d0880bbdd0bac3846fd24bc6edd5bbbc0a35c2d261bac455941fe0b1fdcdf3",
       "initial_published_sha256": "877c68151b10fa5c6cf7e37eb8816e70eb359627e59d4498ebc5865aa5cb4a0c",
       "technical_revision": "2026-11-17: portable CSV export; see technical_revision.json"
     },
