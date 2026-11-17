@@ -26,6 +26,7 @@ def pilot(tmp_path):
 
 
 @pytest.mark.parametrize("change",["gold","options","prompt","duplicate","probabilities","trace"])
+@pytest.mark.usefixtures("archive_data")
 def test_reject_mutated_observations_even_with_other_metadata_valid(pilot,change):
     manifest,path=pilot
     rows=[json.loads(line) for line in path.read_text().split("\n") if line]
@@ -40,12 +41,14 @@ def test_reject_mutated_observations_even_with_other_metadata_valid(pilot,change
     with pytest.raises(ValueError): load_raw(ANALYSIS,manifest,allow_pilot=True)
 
 
+@pytest.mark.usefixtures("archive_data")
 def test_actual_hash_must_match_saved_summary_before_parsing(pilot):
     manifest,records=pilot
     summary=dict(observation_manifest_sha256=sha256(manifest),observations_sha256="0"*64)
     with pytest.raises(ValueError,match="SHA256"): load_raw(ANALYSIS,manifest,summary,allow_pilot=True)
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_reference_reader_preserves_lexical_and_executed_na_representations():
     population,source=expected_population(ANALYSIS,"mmlu")
     row=population["college_computer_science:10"]
@@ -58,6 +61,7 @@ def test_reference_reader_preserves_lexical_and_executed_na_representations():
 
 
 @pytest.mark.parametrize("change",["partition","aggregate","recall"])
+@pytest.mark.usefixtures("archive_data")
 def test_summary_checks_detect_partition_and_numeric_changes(change):
     summary=json.loads((ANALYSIS/"outputs/lrz-results/pride-reproduction-20261016/results/qwen3-8b/medqa/result.json").read_text())
     population,_=expected_population(ANALYSIS,"medqa")

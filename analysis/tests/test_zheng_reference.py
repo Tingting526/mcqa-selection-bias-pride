@@ -10,10 +10,9 @@ from src.pride.debias import apply_pride_correction, cyclic_content_average
 ROOT = Path(__file__).resolve().parents[1] / 'data/reference/zheng2024'
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_pride_matches_upstream_for_positive_probabilities():
     path = ROOT / 'upstream/code/debias_utils.py'
-    if not path.exists():
-        pytest.skip('Download pinned reference with scripts/download_zheng2024.py')
     spec = importlib.util.spec_from_file_location('zheng_debias_reference', path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -40,9 +39,8 @@ def test_pride_matches_upstream_for_positive_probabilities():
         assert corrected.argmax() == ref.argmax()
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_reference_counts_and_five_options_preserved():
-    if not (ROOT / 'manifest.json').exists():
-        pytest.skip('Reference datasets not downloaded')
     manifest = json.loads((ROOT / 'manifest.json').read_text())
     counts = {row['dataset']: row['retained_rows'] for row in manifest['datasets']
               if row['repository_split'] == 'test'}

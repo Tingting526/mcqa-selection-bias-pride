@@ -1,39 +1,22 @@
-// CPU table export from versioned scientific JSON through the artifact-tool API.
+// Export saved scientific JSON to CSV; no inference or refitting.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { Workbook } from '@oai/artifact-tool';
+import { fileURLToPath } from 'node:url';
+import { writeMatrix, parseCSV } from './_csv.mjs';
 
-const root='<project-root>';
-const output=path.resolve(process.argv[2] ?? `${root}/analysis/outputs/phase3b_20261017`);
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+if (!process.argv[2]) throw new Error('Usage: node export_phase3b_tables.mjs INPUT_DIR [OUTPUT_DIR] [--update-ledger]');
+const input=path.resolve(process.argv[2]);
+const output=path.resolve(process.argv[3] && !process.argv[3].startsWith('--') ? process.argv[3] : input);
 const updateLedger=process.argv.includes('--update-ledger');
-const results=JSON.parse(await fs.readFile(path.join(output,'analysis_results.json'),'utf8'));
+const results=JSON.parse(await fs.readFile(path.join(input,'analysis_results.json'),'utf8'));
 const sha=text=>crypto.createHash('sha256').update(text).digest('hex');
 const quote=value=>'"'+String(value??'').replaceAll('"','""')+'"';
 const cell=value=>value===null||value===undefined?'':typeof value==='object'?JSON.stringify(value):value;
-const workbook=Workbook.create();
 const manifest=[];
-let sequence=0;
-
-function columnName(number) {
-  let value='';
-  while(number>0) {number--;value=String.fromCharCode(65+number%26)+value;number=Math.floor(number/26);}
-  return value;
-}
-async function exportMatrix(filename,matrix,exclusive=true) {
-  if(!matrix.length||!matrix[0].length) throw new Error('Empty matrix');
-  const sheet=workbook.worksheets.add('Evidence'+(++sequence));
-  const range=sheet.getRange(`A1:${columnName(matrix[0].length)}${matrix.length}`);
-  range.values=matrix.map(row=>row.map(cell));
-  workbook.recalculate();
-  const values=range.values;
-  for(let i=0;i<matrix.length;i++) for(let j=0;j<matrix[0].length;j++) {
-    if(String(values[i][j]??'')!==String(cell(matrix[i][j]))) throw new Error(`Cell changed in ${filename}: ${i},${j}`);
-  }
-  const csv=values.map(row=>row.map(quote).join(',')).join('\r\n')+'\r\n';
-  await fs.mkdir(path.dirname(filename),{recursive:true});
-  await fs.writeFile(filename,csv,{flag:exclusive?'wx':'w'});
-  manifest.push({path:filename,rows:matrix.length-1,columns:matrix[0].length,sha256:sha(csv),allAuthoredCellsVerified:true});
+async function exportMatrix(filename,matrix) {
+  manifest.push(await writeMatrix(filename,matrix));
 }
 async function exportRows(relative,rows) {
   if(!rows.length) return; // Missing empirical results are not fabricated.
@@ -85,11 +68,10 @@ await exportRows('tables/input_representation_differences.csv',Object.entries(re
 if(updateLedger) {
   const ledgerPath=path.join(root,'experiment_evidence_ledger.csv');
   const original=await fs.readFile(ledgerPath,'utf8');
-  const baseline=JSON.parse(await fs.readFile(path.join(output,'preservation_baseline.json'),'utf8'));
+  const baseline=JSON.parse(await fs.readFile(path.join(input,'preservation_baseline.json'),'utf8'));
   if(sha(original)!==baseline.files['experiment_evidence_ledger.csv'].sha256) throw new Error('Root ledger changed since checksummed backup; preserve/review it first');
-  const oldWorkbook=await Workbook.fromCSV(original,{sheetName:'Existing'});
-  const matrix=oldWorkbook.worksheets.getItem('Existing').getRange('A1:X1000').values;
-  if(matrix[999]?.[0]) throw new Error('Ledger exceeds explicit read bound');
+  const matrix=parseCSV(original);
+  if(matrix.some(row=>row.length!==matrix[0].length)) throw new Error('Ragged ledger CSV');
   const columns=matrix[0];
   let oldRows=matrix.slice(1).filter(row=>row[0]).map(row=>Object.fromEntries(columns.map((key,i)=>[key,row[i]??''])));
   oldRows=oldRows.filter(row=>!String(row.experimental_block).startsWith('C:'));
@@ -143,12 +125,11 @@ if(updateLedger) {
   await fs.rename(staged,ledgerPath);
   manifest.at(-1).path=ledgerPath;
 }
-const inspection=await workbook.inspect({kind:'table',range:'Evidence2!A1:H5',include:'values',tableMaxRows:5,tableMaxCols:8});
-await fs.writeFile(path.join(output,'table_export_validation.json'),JSON.stringify({files:manifest,inspection},null,2)+'\n',{flag:'wx'});
+await fs.writeFile(path.join(output,'table_export_validation.json'),JSON.stringify({engine:'node:fs RFC4180 CSV',files:manifest},null,2)+'\n');
 await fs.writeFile(path.join(output,'tables','table_metadata.json'),JSON.stringify({protocol:'original-open-clm-raw-prompt-1536',modelPanel:results.validation.map(v=>v.model).filter((v,i,a)=>a.indexOf(v)===i),
   populations:Object.fromEntries(results.validation.map(v=>[v.dataset,v.population_n])),units:'Accuracy/recall %, RStd/differences pp; semantic consistency fraction',
   primaryDenominator:'Full retained D, hybrid PriDe CPA on De + correction on Dr; transfer uses identical Tr for all four methods',
   calibration:'Five path-seeded draws for preserved results, SD ddof=0; new transfer seed-42 independent source/target partitions',
-  uncertainty:'No confidence intervals or new significance tests executed',sourceManifest:path.join(output,'source_manifest.json'),
-  verification:'All 30 summary rows independently reconstructed from full matching raw observations; 12 real paired transfer directions. Medical logit/truncation traces and resolved tokenizer commits remain unavailable. Ten MMLU options used executed nan instead of source None; see audit.',files:manifest},null,2)+'\n',{flag:'wx'});
+  uncertainty:'No confidence intervals or new significance tests executed',sourceResults:path.join(input,'analysis_results.json'),
+  verification:'CSV cells checked against the supplied derived JSON; this export does not revalidate raw observations.',files:manifest},null,2)+'\n');
 console.log(JSON.stringify({csvOutputs:manifest.length,rows:manifest.map(r=>({path:r.path,rows:r.rows}))}));

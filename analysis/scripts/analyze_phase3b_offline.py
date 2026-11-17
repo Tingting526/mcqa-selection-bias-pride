@@ -3,7 +3,7 @@
 
 Run from analysis/ with numpy, pandas, pyarrow and PyYAML installed. No model
 dependencies are used. Existing result files are never opened for writing.
-CSV export is a separate artifact-tool step; JSON and Markdown are native outputs.
+CSV export is a separate standard-library Node.js step; JSON and Markdown are native outputs.
 """
 from __future__ import annotations
 import argparse

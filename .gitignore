@@ -19,5 +19,12 @@ analysis/outputs/cache/
 analysis/outputs/logs/
 analysis/outputs/rq1_restructure_20261021/sources/*.pdf
 tmp/
+analysis/outputs/reproduction-check/
+analysis/outputs/raw-replay/
+analysis/outputs/csv-export/
+analysis/*.egg-info/
+analysis/build/
+analysis/dist/
+submission-check/
 *.pdf
 !Paper/figures/*.pdf

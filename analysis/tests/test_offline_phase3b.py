@@ -37,6 +37,7 @@ def oracle():
 
 
 @pytest.mark.parametrize("shape",[(4,4),(5,5),(24,4)])
+@pytest.mark.usefixtures("reference_data")
 def test_independent_decomposition_matches_pinned_oracle(shape):
     rng=np.random.default_rng(80)
     for _ in range(30):
@@ -55,6 +56,7 @@ def test_arc_subset_is_cyclic_lexicographic_not_first_four():
 
 
 @pytest.mark.parametrize("k",[4,5])
+@pytest.mark.usefixtures("reference_data")
 def test_all_five_path_seeded_draws_match_production_oracle(k):
     from src.pride.zheng import evaluate
     scores=synthetic(k=k)
@@ -81,6 +83,7 @@ def test_prediction_uses_log_correction_without_an_extra_softmax(monkeypatch):
     transfer_pair(synthetic("medqa"),synthetic("medmcqa",seed=12))
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_prior_matches_oracle_without_access_to_gold():
     scores=synthetic()
     selected=list(scores.ids[:7])
@@ -225,6 +228,7 @@ assert not ({'torch','transformers','datasets','accelerate'} & set(sys.modules))
 
 
 @pytest.mark.parametrize("dataset,run",[("arc","qwen3-8b_arc_0abc7b8b9606"),("csqa","qwen3-8b_csqa_8b67711108fe")])
+@pytest.mark.usefixtures("archive_data")
 def test_real_reference_pilot_is_checked_but_not_promoted(dataset,run):
     # Identify the completed fp32 pilot using metadata, not a guessed run name.
     parent=ANALYSIS/"outputs/lrz-results/zheng-selection-bias"

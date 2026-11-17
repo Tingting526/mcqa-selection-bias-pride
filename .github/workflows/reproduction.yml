@@ -1,0 +1,44 @@
+name: Reproduction checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            constraints-tested.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r requirements.txt -c constraints-tested.txt
+      - name: Tests without external data
+        working-directory: analysis
+        run: python -m pytest -ra
+      - run: python analysis/scripts/download_zheng2024.py
+      - name: Tests with pinned reference data
+        working-directory: analysis
+        run: python -m pytest -ra --require-reference
+      - run: node --test analysis/tests/csv.test.mjs
+      - run: python analysis/scripts/reproduce_results.py --output submission-check/statistics
+      - run: ./reproduce_tables.sh
+      - name: Figures and CSV exports
+        run: |
+          python Paper/figures/generate_chapter5_figures.py --output-dir submission-check/figures
+          python analysis/scripts/plot_transfer_contrasts.py
+          python analysis/scripts/plot_heatmaps_wide.py
+          node analysis/scripts/export_phase3b_tables.mjs analysis/outputs/phase3b_20261018/verified submission-check/csv/phase3b
+          node analysis/scripts/export_phase4_statistics.mjs analysis/outputs/phase4_20261018_20261018T091030Z submission-check/csv/phase4
+          node analysis/scripts/export_phase6_results.mjs analysis/outputs/phase6_robustness_20261018 submission-check/csv/phase6
+      - name: Scientific inputs remain unchanged
+        run: git diff --exit-code -- Paper/generated Paper/figures/chapter5_data analysis/outputs

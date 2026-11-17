@@ -8,6 +8,10 @@
 #
 # Usage: ./reproduce_tables.sh [--keep]     (--keep retains the temporary copy)
 set -euo pipefail
+if [[ $# -gt 1 || ( $# -eq 1 && "$1" != "--keep" ) ]]; then
+  echo "Usage: ./reproduce_tables.sh [--keep]" >&2
+  exit 2
+fi
 
 REPO="$(cd "$(dirname "$0")" && pwd)"
 PDF_REL="analysis/outputs/rq1_restructure_20261021/sources/zheng_iclr2024.pdf"
@@ -18,16 +22,37 @@ PY="${PYTHON:-python3}"
 WORK="$(mktemp -d)"
 trap '[[ "${1:-}" == "--keep" ]] || rm -rf "$WORK"' EXIT
 echo "Working copy: $WORK"
-cp -R "$REPO/." "$WORK/"
-rm -rf "$WORK/.git"
+"$PY" - "$REPO" "$WORK" <<'PY'
+from pathlib import Path
+import shutil
+import sys
+source, target = map(Path, sys.argv[1:])
+ignore_common = shutil.ignore_patterns('.git', '.venv', '.micromamba', '__pycache__',
+    '.pytest_cache', 'node_modules')
+def ignore(directory, names):
+    skipped = set(ignore_common(directory, names))
+    if Path(directory) == source / 'analysis':
+        skipped.add('data')
+    if Path(directory) == source / 'analysis/outputs':
+        skipped.update(('lrz-results', 'preprocessed', 'raw', 'cache', 'logs',
+                        'reproductions', 'reproduction-check', 'raw-replay', 'csv-export'))
+    return skipped
+for name in ('analysis', 'Paper'):
+    shutil.copytree(source / name, target / name, ignore=ignore)
+PY
 
 # The Zheng et al. (2024) paper PDF is not redistributed. Only its SHA-256 is
 # recorded by restructure_rq1_presentation.py, so download the public copy.
 if [[ ! -f "$WORK/$PDF_REL" ]]; then
   curl -L --fail --silent --show-error -o "$WORK/$PDF_REL" "$PDF_URL"
 fi
-got="$(shasum -a 256 "$WORK/$PDF_REL" 2>/dev/null || sha256sum "$WORK/$PDF_REL")"
-[[ "${got%% *}" == "$PDF_SHA" ]] || echo "Note: downloaded PDF hash differs from the recorded one (only the provenance file is affected)."
+"$PY" - "$WORK/$PDF_REL" "$PDF_SHA" <<'PY'
+import hashlib
+from pathlib import Path
+import sys
+if hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest() != sys.argv[2]:
+    raise SystemExit('Reference PDF checksum differs; table reproduction stopped.')
+PY
 
 # build_phase7_robustness_assets.py reads its output directory from this file.
 mkdir -p "$WORK/tmp"

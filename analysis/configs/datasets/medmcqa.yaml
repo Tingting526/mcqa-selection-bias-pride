@@ -1,6 +1,6 @@
 alias: medmcqa
 repo: openlifescienceai/medmcqa
 config: null
-revision: main
+revision: 91c6572c454088bf71b679ad90aa8dffcd0d5868
 default_split: validation
 adapter: medmcqa

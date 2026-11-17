@@ -1,0 +1,195 @@
+{
+  "date": "2026-11-17",
+  "baseline_commit": "2fcfb67748413ae4d5059e42d18eced8837de686",
+  "scope": [
+    "Optional external test fixtures with strict opt-in validation",
+    "Portable derived-result checks and original raw-archive replay",
+    "Standard-library CSV exports and missing full-pool control data",
+    "Pinned dataset revisions, download checksums, environment record and CI",
+    "Non-destructive table wrapper, installation metadata and corrected documentation",
+    "Remove obsolete environment-specific installation instructions and figure import fallback"
+  ],
+  "scientific_numerics_changed": false,
+  "submitted_tables_changed": false,
+  "files": [
+    {
+      "path": ".github/workflows/reproduction.yml",
+      "baseline_sha256": null,
+      "current_sha256": "d66f0f2b4450689307c3a97f477c69f4a57e06b2fbdd426c68cf9f086dad0b76"
+    },
+    {
+      "path": ".gitignore",
+      "baseline_sha256": "5de7f798c0dc8b396e1193212a0a8c6d49de0c4f25d92e77e6d39c6f1655c2ec",
+      "current_sha256": "779f4586fd50ffd8f7ab3f67aac53694be9fcbc81512814de8978d6a216f9445"
+    },
+    {
+      "path": "Paper/figures/generate_chapter5_figures.py",
+      "baseline_sha256": "df99ab4e697d71c4204d1afe688ee7eabbe160ebb9f673cceb0935214091be06",
+      "current_sha256": "ae937d96fd8c22f1b8c53ac893557d00fda2dfae9970edd6817c2437332eced8"
+    },
+    {
+      "path": "README.md",
+      "baseline_sha256": "be09ad5b84b4f4ac8d6d16189289b6569dca41877c94e890c76a33d2942140ff",
+      "current_sha256": "ccb83a1a12384fb7feb4977a392cfb531f3343716bf9c4892dc2c884c5927a96"
+    },
+    {
+      "path": "analysis/README.md",
+      "baseline_sha256": null,
+      "current_sha256": "8b3565aa0802dd854a30061bb1114fb5e07ef8d7e211caa791c1aaafb865d0a6"
+    },
+    {
+      "path": "analysis/configs/datasets/medmcqa.yaml",
+      "baseline_sha256": "cfb9752a10171c2b7534c057b5032fe1d21e46b112278fec59eb6a9b978ec811",
+      "current_sha256": "e1051becfe5cc72ab9a6b24d2503ead1406b66f0e0c768087c72e330ff432a43"
+    },
+    {
+      "path": "analysis/configs/datasets/medqa.yaml",
+      "baseline_sha256": "b8138a457dba513ceb34db48f8e5ca28de32cc231dce8c7a93bbfdfe904c4954",
+      "current_sha256": "f0be040c7d4cbf2ce480eafac7506ceedc7e7db180d9206429579d745df77160"
+    },
+    {
+      "path": "analysis/outputs/phase6_robustness_20261018/seed_control_results.json",
+      "baseline_sha256": null,
+      "current_sha256": "628e6a761b51ec09ba8e1eebbfb2dae8be7d0842adeecd7371d7cdd1aab61f97"
+    },
+    {
+      "path": "analysis/pyproject.toml",
+      "baseline_sha256": "78f2abbae213a8104deaf6f0107c6b6cd60323b531ea701ba9e2896f43a24584",
+      "current_sha256": "df1086f944989ca6e7cbe16fdcaa104e7d01ba034b56823d0168fc582caf807f"
+    },
+    {
+      "path": "analysis/scripts/_csv.mjs",
+      "baseline_sha256": null,
+      "current_sha256": "29d88fc97547c1a21d9773ff6f4efe3d00fe2b40ff3748aa535b770be83a2acd"
+    },
+    {
+      "path": "analysis/scripts/analyze_phase3b_offline.py",
+      "baseline_sha256": "c2a4d0fcbf0af108d7d8d19b61cb4e5950b6968014926b043c8fbbaeb20d065e",
+      "current_sha256": "7a183e67d1289133507ddb4c0229d74d19eda66ca99ed212c563e6abfb115d25"
+    },
+    {
+      "path": "analysis/scripts/download_zheng2024.py",
+      "baseline_sha256": "136ffbb6354990bcb618809c8bf819b800d9b3d0d133d76b1eab2da01436da33",
+      "current_sha256": "34e7c4fe9d86976a191cb9d45c57ac092d33ab5bf884cbbb9fb26d6670e4474c"
+    },
+    {
+      "path": "analysis/scripts/export_phase3b_tables.mjs",
+      "baseline_sha256": "877c68151b10fa5c6cf7e37eb8816e70eb359627e59d4498ebc5865aa5cb4a0c",
+      "current_sha256": "e9f382720832042e04a58811b429fffc1a83f678f7b36de6e9bb18b912df7c30"
+    },
+    {
+      "path": "analysis/scripts/export_phase4_statistics.mjs",
+      "baseline_sha256": "37467599a2ebf0079144d82195f41ed596edbc596454aab33c572bddfea1527b",
+      "current_sha256": "9d23ba3b42ba81948cb22b0af1316e109c21bb2240e01bc989dbce06d75223d8"
+    },
+    {
+      "path": "analysis/scripts/export_phase6_results.mjs",
+      "baseline_sha256": "69149547b3acd2ff3fb6028b89bf82cc84f1c7edad3ce04498aa27cc94661b60",
+      "current_sha256": "4e7eea33fae53f95a2bcd16fe23c64b39a1f77938ee8eecfa3a068875994d4a0"
+    },
+    {
+      "path": "analysis/scripts/report_phase6_robustness.py",
+      "baseline_sha256": "c0bb033834a71b6122c7a279262ac1225b7c8858a158b755e7311257029fcd73",
+      "current_sha256": "57e446f646ebaaa48e5a85902525132b841a957c752e1d7bcc01723b6e90c779"
+    },
+    {
+      "path": "analysis/scripts/reproduce_results.py",
+      "baseline_sha256": null,
+      "current_sha256": "99a24416c486618cd61b5035052aab107c934c659c2ac8331b2eeb3c0b72e9a8"
+    },
+    {
+      "path": "analysis/src/release_validation.py",
+      "baseline_sha256": null,
+      "current_sha256": "2104fc914a58b7fe2978a55af8ff6e169df1f4aa0e0ebfa0be6f664e11fbf8d0"
+    },
+    {
+      "path": "analysis/tests/conftest.py",
+      "baseline_sha256": null,
+      "current_sha256": "9522d4993383de1d00ee6c1d25504262a61279bd3bedf06c696b393ca5ded9ac"
+    },
+    {
+      "path": "analysis/tests/csv.test.mjs",
+      "baseline_sha256": null,
+      "current_sha256": "348e6803c3db0c25fde6ddbbb1638a3998757516ff431abf7b113e66507245a8"
+    },
+    {
+      "path": "analysis/tests/test_offline_phase3b.py",
+      "baseline_sha256": "423ba17de41fd1aa3a0fc1bf75ddad86628e1b95fcdf3dff01974e14993d4890",
+      "current_sha256": "5ada4067b8e5dadd9ddcd35ff0c7636057653f64b7b2006df3df3de44805cf75"
+    },
+    {
+      "path": "analysis/tests/test_phase3b_validation.py",
+      "baseline_sha256": "068b655bc462b9d8aa3bde726d8cd6c13e9f8654ee33a45fe21738bfe26ea8b4",
+      "current_sha256": "97f6f2c71df0b8f21477ec0f441460ad2935711a0203f0b2f93ce1956ff5b863"
+    },
+    {
+      "path": "analysis/tests/test_pride_reproduction.py",
+      "baseline_sha256": "2831747c519035a1e05fbc22a04b5419af7345fe4063bfd72673cae79ccd0903",
+      "current_sha256": "52fd953cd166506b9a5659ed346ec0faec5271b3152add4e6d6d35344fdb00b2"
+    },
+    {
+      "path": "analysis/tests/test_release_validation.py",
+      "baseline_sha256": null,
+      "current_sha256": "969d97cbfc231e95b0156602e3f2649a9d567d148c60e56c1fbb6992ddaba229"
+    },
+    {
+      "path": "analysis/tests/test_zheng_reference.py",
+      "baseline_sha256": "739b24d0946683db51e90cdd23ec3bb4055980923747a3771e8eea83849ccb72",
+      "current_sha256": "dfcec6d232583a5c4788c3c0cf3badf5797eb5e41b7761b3d576a7b7f97821c6"
+    },
+    {
+      "path": "analysis/tests/test_zheng_selection_bias.py",
+      "baseline_sha256": "af2a82907fd61db7be72ee9652cf5ef78fd1de9ca146b7960d59be55baec77da",
+      "current_sha256": "4d83151b79cca638430513ffc53b09fde79a8ce5c3114055aa7f16726e823c1c"
+    },
+    {
+      "path": "constraints-tested.txt",
+      "baseline_sha256": null,
+      "current_sha256": "fbcd34a11ec2b20e7ab769eba033879046058560b5a215a28e1af31939b1b3d1"
+    },
+    {
+      "path": "provenance/redactions.json",
+      "baseline_sha256": "4ba50254cbe29aed0ddc4e1ee675d0532cb8cf518332e5841d4801735333c464",
+      "current_sha256": "09d3912533deb9c871ff5e232ff985dacc23715e03c6b156ae05d615a04035b6"
+    },
+    {
+      "path": "provenance/results_manifest.json",
+      "baseline_sha256": null,
+      "current_sha256": "9627a6e6552311124116eff9f14bcd3d77220a78fcdb7a6ceba20a3507438129"
+    },
+    {
+      "path": "reproduce_tables.sh",
+      "baseline_sha256": "8d94d4a40bd8edb6df999b649dd6ec1ff4407537f710faf8c7ba3608681d8729",
+      "current_sha256": "dd0eee63426d1490b888576d016dc51bb4d352b9ed562b1fc6a13d5ac1e74195"
+    }
+  ],
+  "validation": {
+    "date": "2026-11-17",
+    "python": "3.12.13",
+    "platform": "macOS arm64",
+    "offline_tests": {
+      "passed": 160,
+      "skipped_external": 35,
+      "deselected_gpu": 1
+    },
+    "reference_tests": {
+      "passed": 183,
+      "skipped_archive": 12,
+      "deselected_gpu": 1
+    },
+    "archive_tests": {
+      "passed": 195,
+      "deselected_gpu": 1
+    },
+    "csv_tests_passed": 2,
+    "byte_identical_tables": 28,
+    "figure_entry_points_passed": 3,
+    "scientific_input_hashes_verified": 42,
+    "raw_conditions_replayed": 30,
+    "raw_transfer_directions_replayed": 12,
+    "bootstrap_intervals_recomputed": 36,
+    "editable_package_install": "passed",
+    "remote_ci": "See the repository Actions run for this release commit.",
+    "new_gpu_inference": false
+  }
+}

@@ -10,6 +10,7 @@ from src.pride.prior_estimation import estimate_sample_prior, estimate_global_pr
 from src.pride.debias import apply_pride_correction, cyclic_content_average
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_sharp_and_zero_probabilities_match_original_numerics_exactly():
     z = original_debias()
     p = np.array([[.9,.09,.009,.001],[1e-25,.5,.4,.1],
@@ -29,6 +30,7 @@ def test_sharp_and_zero_probabilities_match_original_numerics_exactly():
 
 
 @pytest.mark.parametrize('shape',[(4,4),(24,4),(5,5)])
+@pytest.mark.usefixtures("reference_data")
 def test_five_repeat_results_match_literal_upstream_processing(shape):
     z=original_debias()
     rng=np.random.default_rng(20261015)
@@ -64,6 +66,7 @@ def test_five_repeat_results_match_literal_upstream_processing(shape):
     assert result['pride']['repeats']==5 and result['n_labels']==shape[1]
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_labels_never_enter_estimated_prior():
     rng=np.random.default_rng(42)
     samples=[dict(id=str(i),gold=i%5,probs=rng.dirichlet(np.ones(5),size=5).tolist()) for i in range(100)]
@@ -74,6 +77,7 @@ def test_labels_never_enter_estimated_prior():
         assert a['estimation_ids']==b['estimation_ids']
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_sampling_rejects_empty_estimation_set_and_duplicate_ids():
     sample=dict(id='x',gold=0,probs=np.full((4,4),.25).tolist())
     with pytest.raises(ValueError,match='Too few'):
@@ -82,6 +86,7 @@ def test_sampling_rejects_empty_estimation_set_and_duplicate_ids():
         evaluate([sample,sample],'test')
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_medical_extension_uses_same_prompt_as_original_arc():
     import sys
     scripts=Path(__file__).resolve().parents[1]/'scripts'
@@ -100,6 +105,7 @@ def test_medical_extension_uses_same_prompt_as_original_arc():
     assert generated[1]==expected
 
 
+@pytest.mark.usefixtures("reference_data")
 def test_postprocessing_is_cpu_only_and_refuses_changed_source(tmp_path, monkeypatch):
     import json, sys
     scripts=Path(__file__).resolve().parents[1]/'scripts'

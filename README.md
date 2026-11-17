@@ -1,78 +1,130 @@
 # Selection Bias and PriDe in Medical Multiple-Choice QA
 
-Code for the Bachelor's thesis *Selection Bias in Open-Weight Large Language Models for Medical Multiple-Choice Question Answering: Reproducing and Extending PriDe on MedQA and MedMCQA* (Department of Statistics, LMU Munich, 2026).
+Code and derived results for the Bachelor's thesis *Selection Bias in Open-Weight Large Language Models for Medical Multiple-Choice Question Answering: Reproducing and Extending PriDe on MedQA and MedMCQA* (Department of Statistics, LMU Munich, 2026).
 
-The thesis has three research questions:
+## Version cited in the thesis
 
-- **RQ1:** Does the selection-bias pattern reported by Zheng et al. (2024) reappear for six newer instruction-tuned open-weight models on MMLU, ARC-Challenge and CommonsenseQA, and how do CPA and PriDe change accuracy and recall imbalance?
-- **RQ2:** How do these methods behave on the medical benchmarks MedQA and MedMCQA?
-- **RQ3:** How does a PriDe option-ID prior estimated on one medical benchmark perform when applied to the other?
+Appendix A.17 cites commit [`2fcfb67748413ae4d5059e42d18eced8837de686`](https://github.com/Tingting526/mcqa-selection-bias-pride/tree/2fcfb67748413ae4d5059e42d18eced8837de686). That exact snapshot remains available and is also tagged `thesis-cited-version`.
 
-This repository contains the implementation that produced the thesis results. It is not a simplified re-implementation. See [Provenance](#provenance) for how this was checked.
+The current branch adds installation, test, CSV-export and reproducibility fixes to that snapshot. The submitted result values, all 28 manuscript tables and the original numerical functions are unchanged. Use the commands below to reproduce the results with these portability fixes. `provenance/technical_revision.json` records the differences from the cited commit. The corrected code release is tagged `thesis-submission-2026-11-17`.
 
-## Contents
+The thesis studies three questions:
 
-```text
-analysis/
-  src/                      implementation
-    data/                   dataset loaders, normalization, preprocessing and validation
-    prompts/                raw-text MCQ prompt construction
-    models/                 model loading and first-token scoring
-    permutations/           cyclic option permutations
-    pride/                  PriDe prior estimation, correction and transfer;
-                            zheng.py wraps the pinned original PriDe numerics
-    experimental/           original Zheng et al. conditions for open models
-    metrics/                accuracy, recall, RStd, paired comparisons
-    evaluation/             baseline, permutation and PriDe evaluation
-    offline_phase3b.py      primary RQ1-RQ3 analysis from saved scores
-    phase4_statistics.py    paired question bootstrap with fixed priors
-    phase6_robustness.py    calibration and seed robustness analyses
-    thesis_strengthening.py prompt-length, ARC-order, choice-type, native-template analyses
-  scripts/                  command-line entry points (inference, analysis, tables, figures)
-    slurm/                  LRZ AI Systems job scripts
-  configs/                  datasets, models (pinned revisions), preprocessing, experiment
-  tests/                    pytest suite
-  thesis_tables_static/     the two hand-maintained thesis tables
-  outputs/                  derived result files needed to rebuild the thesis tables
-Paper/
-  generated/                the 28 thesis tables exactly as included in the manuscript
-  figures/                  Chapter 5 figure generator and its full-precision data snapshot
-  reproducibility_manifest.json  source versions of the thesis results (paths refer to the full project archive)
-provenance/redactions.json  record of the path redactions described below
-reproduce_tables.sh         rebuilds and checks the 28 tables
-```
+- **RQ1:** Do the selection-bias patterns reported by Zheng et al. (2024) reappear for six newer instruction-tuned open-weight models on MMLU, ARC-Challenge and CommonsenseQA?
+- **RQ2:** How do Default, cyclic permutation averaging (CPA) and PriDe behave on MedQA and MedMCQA?
+- **RQ3:** How does an option-ID prior estimated on one medical benchmark perform on the other?
+
+The experimental implementation is in `analysis/src/`. The portable submission check reuses its numerical functions and verifies the saved predictions. It does not run language models.
 
 ## Installation
 
-Python 3.10 or newer. Inference was run with Python 3.11.16, PyTorch 2.14.0 (CUDA 13.0) and Transformers 5.17.0 on NVIDIA A100 80 GB GPUs (LRZ AI Systems), in bfloat16 without quantization.
+Use Python 3.12 for the tested installation below. The package supports Python 3.10 or newer with compatible dependency versions, but the frozen validation environment targets 3.12. Node.js 18 or newer is needed only for CSV exports. Those exports use the Node.js standard library and need no npm packages.
+
+All commands below start in the repository root unless a subshell explicitly changes directory.
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt -c constraints-tested.txt
 ```
 
-`requirements.txt` covers inference, analysis, figures and tests. Rebuilding tables and figures and running the tests needs no GPU. Inference needs a CUDA GPU.
+`constraints-tested.txt` records the versions used for the CPU release checks on macOS arm64. It is separate from the historical inference environment: Python 3.11.16, PyTorch 2.14.0 with CUDA 13.0, and Transformers 5.17.0 on NVIDIA A100 80 GB GPUs, using bfloat16 without quantization. Other platforms may require a platform-specific PyTorch installation. `requirements.txt` specifies the supported package ranges.
 
-## Data
+## Reproduce the submitted results without a GPU
 
-Datasets are not redistributed here. They are downloaded from their original sources by the scripts:
+The repository contains the derived evidence needed for these commands. No dataset or model download is needed for the first command, the figures or the CSV exports.
+
+```bash
+python analysis/scripts/reproduce_results.py --output analysis/outputs/reproduction-check
+./reproduce_tables.sh
+python Paper/figures/generate_chapter5_figures.py --output-dir submission-check/figures
+python analysis/scripts/plot_transfer_contrasts.py
+python analysis/scripts/plot_heatmaps_wide.py
+```
+
+The result check verifies the SHA-256 hashes of 42 scientific input files, the 30 model–benchmark conditions, all 12 medical transfer directions and the 36 paired bootstrap intervals. It recomputes accuracy and RStd from saved per-question transfer predictions and recomputes the 1,000-draw fixed-prior question bootstrap. It also checks the exact-count direction classifications against the saved five calibration draws. Outputs are `verification.json` and `statistics_results.json`. Choose a new `--output` directory for each run; existing results are never overwritten.
+
+This check establishes consistency of the submitted derived evidence. It does not establish that raw model scores were produced correctly. Use the raw-archive replay below for the additional source checks.
+
+The table wrapper runs all five generators in a temporary copy and compares the result with `Paper/generated/`. Expected result:
+
+```text
+{"files": 28, "identical": 28, "different": []}
+```
+
+It downloads and checks the SHA-256 of the Zheng et al. paper PDF from the ICLR proceedings. An internet connection is needed unless that PDF is already cached at `analysis/outputs/rq1_restructure_20261021/sources/zheng_iclr2024.pdf`. The temporary copy excludes virtual environments and raw-data directories. Set `PYTHON=/path/to/python` to select another interpreter; `--keep` retains the temporary files.
+
+The figure scripts use the full-precision snapshot in `Paper/figures/chapter5_data/plot_data.json` and the bundled result JSON files. They do not perform inference or refit priors. Plot appearance and PDF/SVG serialization can vary with Matplotlib and fonts; the table comparison is byte-exact.
+
+### CSV exports
+
+Input and output directories are separate. The exporters preserve numerical precision, encode arrays as JSON, verify CSV round-trips and refuse to overwrite different CSV content. Re-exporting identical files is allowed.
+
+```bash
+node analysis/scripts/export_phase3b_tables.mjs analysis/outputs/phase3b_20261018/verified analysis/outputs/csv-export/phase3b
+node analysis/scripts/export_phase4_statistics.mjs analysis/outputs/phase4_20261018_20261018T091030Z analysis/outputs/csv-export/phase4
+node analysis/scripts/export_phase6_results.mjs analysis/outputs/phase6_robustness_20261018 analysis/outputs/csv-export/phase6
+```
+
+These produce 14 primary-analysis tables, three statistical tables and four robustness tables. The robustness export includes both the 60 calibration-resampling rows and the 60 full-pool control rows. Its missing-value marker is `NA`; the other exports use empty fields. JSON manifests record the exported hashes. CSV export verifies the conversion, not the underlying raw observations.
+
+## Tests
+
+```bash
+(cd analysis && python -m pytest -ra)
+node --test analysis/tests/csv.test.mjs
+```
+
+External fixtures are optional. Tests that need absent reference data or the raw LRZ archive report a skip with instructions. A present but invalid fixture still fails. The real-model integration test is excluded by default.
+
+Download the pinned upstream reference code and datasets to enable the numerical oracle tests:
+
+```bash
+python analysis/scripts/download_zheng2024.py
+(cd analysis && python -m pytest -ra --require-reference)
+```
+
+`--require-reference` turns missing reference data into an error. For the complete original archive tests, restore the archived `analysis/outputs/lrz-results/` and `analysis/outputs/preprocessed/` trees without changing their contents, then run:
+
+```bash
+(cd analysis && python -m pytest -ra --require-reference --require-archive)
+```
+
+The archive tests require the original pilot runs as well as the full-result summaries. They test the archived experiment, so newly generated runs do not replace those fixtures. GPU tests can be selected with `-m integration` on suitable hardware. The GitHub Actions workflow runs the portable checks; it does not have access to the raw archive or gated model weights.
+
+## Replay the original raw-score archive
+
+The raw archive is not included in Git. Keep its relative directory structure intact and provide the project root containing `analysis/`:
+
+```bash
+python analysis/scripts/reproduce_results.py --archive-root /path/to/original-project --output analysis/outputs/raw-replay
+```
+
+The archive must contain the summary, observation and manifest files named in the bundled `analysis/outputs/phase3b_20261018/verified/analysis_results.json`, the pinned reference data under `analysis/data/reference/zheng2024/`, the original medical preprocessing artifacts under `analysis/outputs/preprocessed/`, and the model configurations under `analysis/configs/models/`. `<project-root>` paths in the index are resolved against `--archive-root`; no historical username or absolute home path is required.
+
+The replay checks source hashes, population identities, model configurations, complete permutations and recorded scoring traces. It then recomputes all 30 Default/CPA/five-draw PriDe conditions, the permutation metrics and all 12 paired medical transfers before checking the bootstrap intervals. A missing file or numerical discrepancy stops the run. The archive is read-only; only the selected output directory is created.
+
+Medical logit/truncation traces and some resolved tokenizer commits were not recorded in the original runs. The validation reports those limitations; it cannot reconstruct missing provenance. The literal MMLU `None`-to-`nan` conversion is retained when replaying the original condition. Its separate sensitivity analysis remains in the bundled results.
+
+## Data for new inference
+
+Datasets and model weights are not redistributed. Medical dataset configurations are pinned to the revisions resolved in the original preprocessing manifests.
 
 | Benchmark | Source | Split and revision |
 |---|---|---|
-| MMLU, ARC-Challenge, CommonsenseQA | [chujiezheng/LLM-MCQ-Bias](https://github.com/chujiezheng/LLM-MCQ-Bias) | commit `2ae2f40c77006f7a00a4675bdfb30151c2406691`, archive SHA-256 `cc097f1a…ba810` |
-| MedQA (4 options) | [openlifescienceai/MedQA-USMLE-4-options-hf](https://huggingface.co/datasets/openlifescienceai/MedQA-USMLE-4-options-hf) | test, revision `20a8f4d6b851f6391751f6e76c06bc3a26c83e0b` |
-| MedMCQA | [openlifescienceai/medmcqa](https://huggingface.co/datasets/openlifescienceai/medmcqa) | validation, revision `91c6572c454088bf71b679ad90aa8dffcd0d5868` |
+| MMLU, ARC-Challenge, CommonsenseQA | [chujiezheng/LLM-MCQ-Bias](https://github.com/chujiezheng/LLM-MCQ-Bias) | commit `2ae2f40c77006f7a00a4675bdfb30151c2406691` |
+| MedQA (4 options) | [openlifescienceai/MedQA-USMLE-4-options-hf](https://huggingface.co/datasets/openlifescienceai/MedQA-USMLE-4-options-hf) | test, `20a8f4d6b851f6391751f6e76c06bc3a26c83e0b` |
+| MedMCQA | [openlifescienceai/medmcqa](https://huggingface.co/datasets/openlifescienceai/medmcqa) | validation, `91c6572c454088bf71b679ad90aa8dffcd0d5868` |
 
 ```bash
-cd analysis
-python scripts/download_zheng2024.py                 # reference benchmarks and pinned PriDe code
-python scripts/download_data.py --dataset medqa
-python scripts/download_data.py --dataset medmcqa
-python scripts/preprocess_data.py --dataset medqa
-python scripts/preprocess_data.py --dataset medmcqa
+python analysis/scripts/download_zheng2024.py
+(cd analysis && python scripts/download_data.py --dataset medqa)
+(cd analysis && python scripts/download_data.py --dataset medmcqa)
+(cd analysis && python scripts/preprocess_data.py --dataset medqa)
+(cd analysis && python scripts/preprocess_data.py --dataset medmcqa)
 ```
 
-`download_zheng2024.py` also fetches the original `debias_utils.py`. `src/pride/zheng.py` loads it at run time after checking its SHA-256, so the PriDe numerics are the original ones. The reference code is not copied into this repository.
+The reference downloader checks archive SHA-256 `cc097f1a1ffd9b4435c222fe2cff56b45eed2b9bf9a52947b5398162b22ba810`. `src/pride/zheng.py` separately verifies the upstream `debias_utils.py` before loading it. Canonical MMLU inference uses this reference dataset, not the legacy Hugging Face MMLU adapter.
 
 ## Models
 
@@ -87,121 +139,44 @@ All six models are open-weight instruction-tuned models from the Hugging Face Hu
 | Qwen3 8B | `Qwen/Qwen3-8B` | `b968826d9c46dd6066d109eabc6255188de91218` |
 | GLM-4 9B Chat | `zai-org/glm-4-9b-chat-hf` | `8599336fc6c125203efb2360bfaf4c80eef1d1bf` |
 
-Llama and Gemma are gated: accept their licenses on the Hub and log in with `huggingface-cli login`. Never put access tokens into job scripts. Model weights are not part of this repository.
+Llama and Gemma are gated: accept their licenses on the Hub and log in with `hf auth login`. Never put access tokens into job scripts. Model weights are not part of this repository.
 
-## Reproduction
+## New GPU runs
 
-All commands run from `analysis/`. Steps 1 and 4 need a GPU. Everything else runs on a CPU from saved scores.
-
-### 1. Inference: first-token scores (GPU)
+Run the canonical inference command inside an allocated Slurm GPU job, from `analysis/`:
 
 ```bash
-python scripts/reproduce_pride.py --model qwen2.5-7b-instruct            # all five benchmarks
-python scripts/start_pride_reproduction.py --submit --partition <gpu-partition>   # all models via Slurm
+python scripts/reproduce_pride.py --model qwen2.5-7b-instruct
 ```
 
-`reproduce_pride.py` (implementation `zheng-pride-0shot-v1`) scores raw-text zero-shot prompts at the four cyclic shifts with first-token probabilities over the two candidate slots per label. It also computes Default, CPA and five-draw hybrid PriDe (5% calibration) with the pinned original numerics. Raw observations, priors, partitions and checksums are written under `outputs/reproductions/`. `scripts/slurm/` contains the job scripts and an LRZ setup guide (in German). LRZ user and project paths have been replaced by placeholders such as `<lrz-user>`, so set them for your own cluster.
+To submit all six models, use `python scripts/start_pride_reproduction.py --submit --partition YOUR_GPU_PARTITION` after configuring your cluster environment. The setup scripts and LRZ-specific prerequisites are described in [the cluster guide](analysis/scripts/slurm/README.md). Replace cluster account/path placeholders before submitting jobs. The earlier generic pipeline in that guide is historical; the thesis uses `reproduce_pride.py` and protocol `zheng-pride-0shot-v1`.
 
-### 2. Primary analysis: RQ1, RQ2 and RQ3 (CPU)
+The canonical runner uses raw-text zero-shot prompts, complete cyclic option shifts and first-token scores, with five-draw hybrid PriDe at 5% calibration. It writes observations, priors, calibration memberships and summary hashes under `analysis/outputs/reproductions/`. Its `--postprocess-only` option reuses compatible completed observations without inference. A new run is a separate experiment with its own runtime metadata; it must not overwrite the submitted results or be substituted into the historical archive without validation.
 
-```bash
-python scripts/analyze_phase3b_offline.py --finalize --output outputs/<new-dir>
-python scripts/check_phase3b_transfer.py --output outputs/<new-dir>
-```
+## Repository contents and historical scripts
 
-This verifies the saved scores, recomputes the 30 model-benchmark summaries and computes the 12 direction-specific medical prior transfers. RQ3 uses fixed priors on the seed-42 holdouts (MedQA 63/1,210, MedMCQA 197/3,744).
-
-### 3. Uncertainty and robustness (CPU)
-
-```bash
-python scripts/finalize_phase4_statistics.py --output outputs/<new-dir>   # paired question bootstrap, 1000 draws
-python scripts/run_phase6_robustness.py                                  # calibration-pool resampling, equal budgets
-python scripts/run_phase6_seed_sensitivity.py --policy fixed_pool_with_replacement
-python scripts/run_phase6_seed_sensitivity.py --policy full_pool_without_replacement_control
-python scripts/strengthen_thesis_offline.py                              # prompt lengths, ARC orders, choice types, switches
-```
-
-### 4. Supplementary sensitivity runs (GPU)
-
-```bash
-python scripts/run_thesis_sensitivity.py plan --output <plan.json>
-python scripts/run_thesis_sensitivity.py execute --plan <plan.json> --model <model> --output <dir>
-python scripts/finalize_thesis_sensitivities.py
-python scripts/verify_thesis_prompt_serialization.py
-```
-
-These cover the literal MMLU input repair and native chat templates. Each new condition refits all priors on the original calibration memberships and does not replace primary observations.
-
-### 5. Thesis tables (CPU, five steps)
-
-The 28 tables in `Paper/generated/` are produced in five steps, and the order matters:
-
-1. `build_phase4_thesis_tables.py --output analysis/outputs/phase4_20261018_20261018T091030Z` (needs an empty `tables/latex` in that directory)
-2. `restructure_rq1_presentation.py`
-3. `build_strengthening_tables.py`
-4. `build_phase7_robustness_assets.py`
-5. `finalize_thesis_tables.py --input <generator output> --output <final dir> --check Paper/generated`
-
-Step 5 applies, in this order:
-
-- the table restructuring of 3 November 2026
-- all approved caption and note revisions, listed explicitly in `scripts/thesis_table_text_revisions.json` (each must match exactly once or the script stops)
-- the two hand-maintained tables from `thesis_tables_static/`
-
-The revisions change captions and notes only. No table cell changes.
-
-Steps 1 to 4 write directly into `Paper/generated/` and would overwrite approved captions if run in place. Use the wrapper instead:
-
-```bash
-./reproduce_tables.sh
-# {"files": 28, "identical": 28, "different": []}
-```
-
-It copies the repository to a temporary directory, runs all five steps there, and compares the result byte for byte with the committed `Paper/generated/`. The committed files are never written. The wrapper downloads the Zheng et al. (2024) paper PDF from the ICLR proceedings, because `restructure_rq1_presentation.py` records its SHA-256. The PDF is not redistributed.
-
-**Rule for later caption edits:** add them as new `after_structural` entries to `thesis_table_text_revisions.json`. A caption edited only in `Paper/generated/` is lost at the next regeneration.
-
-### 6. Figures (CPU)
-
-```bash
-python Paper/figures/generate_chapter5_figures.py --output-dir <fresh-dir>
-python analysis/scripts/plot_transfer_contrasts.py      # paired transfer contrasts with bootstrap intervals
-python analysis/scripts/plot_heatmaps_wide.py           # cyclic RStd and consistency heatmaps
-```
-
-The first command uses the full-precision snapshot `Paper/figures/chapter5_data/plot_data.json`. The other two read the bundled result files in `analysis/outputs/` and write their PDFs to `Paper/figures/`. None of them performs inference or refitting. With Matplotlib 3.10.7 the output matches the thesis figures. Other Matplotlib versions change only the SVG serialization, not the coordinates or labels.
-
-### Tests
-
-```bash
-cd analysis && python -m pytest
-```
-
-Without raw scores, 175 tests pass. 12 further tests validate the saved raw LRZ observations (`outputs/lrz-results/`, `outputs/preprocessed/`, several hundred MB, not included). With those files present, all 187 tests pass. One integration test that loads a real model is deselected by default (`-m integration`, needs a GPU).
-
-## What is included and what is not
-
-| Included | Not included |
+| Path | Purpose |
 |---|---|
-| Complete source code, scripts, configs and tests | Dataset copies, which are downloaded from their sources |
-| Derived results needed to rebuild the 28 tables (`analysis/outputs/`) | Model weights |
-| The 28 manuscript tables and the figure data snapshot | Raw per-question scores and priors (several hundred MB) |
-| `Paper/reproducibility_manifest.json` | Editorial revision logs and backups named in that manifest |
-| | The thesis PDF and manuscript sources |
+| `analysis/src/` | Scientific implementation and release validation |
+| `analysis/configs/` | Model, dataset, prompt and preprocessing configuration |
+| `analysis/tests/` | Unit, reference, archive and integration tests |
+| `analysis/outputs/` | Derived scientific results used by the submitted tables and plots |
+| `Paper/generated/` | The 28 submitted LaTeX tables |
+| `Paper/figures/` | Figure generator and full-precision plotting snapshot |
+| `analysis/thesis_tables_static/` | Two hand-maintained tables |
+| `provenance/` | Redaction, technical revision and scientific-input checksums |
 
-Without the raw scores, you can rebuild tables, figures and statistics from the bundled derived results. Rebuilding the derived results needs either the raw-score archive or a new inference run (step 1).
+The thesis PDF, manuscript sources, raw observations, model weights and dataset copies are not included. The generated tables match the `Paper` manuscript version. A manuscript edited separately must be checked against these tables before submission.
 
-## Provenance
+Earlier scripts such as `analyze_phase3b_offline.py`, `finalize_phase4_statistics.py`, `run_phase6_robustness.py`, `strengthen_thesis_offline.py` and the manuscript-delivery validators are retained as the executed workflow record. They depend on the full original archive, including intermediate caches, preservation baselines, editorial files and original paths. They are not fresh-checkout entry points. `reproduce_results.py` provides the portable submission and raw-replay commands above without those editorial dependencies. Supplementary sensitivity results are included as derived evidence; generating new sensitivity experiments requires the corresponding original plans and score caches.
 
-The code was checked against the hashes recorded when the experiments ran:
+## Provenance and table maintenance
 
-- The inference release `pride-reproduction-20261015` matches 16 of 16 files by SHA-256.
-- The Phase 3B analysis matches its execution snapshot, and the Phase 6 and Phase 7 source manifests match all files.
-- `build_strengthening_tables.py` and `build_phase4_thesis_tables.py` differ from their recorded versions only by later caption changes. The tables they produce are verified by `reproduce_tables.sh`.
+`provenance/results_manifest.json` records the submitted scientific input hashes. `provenance/redactions.json` records executed and initially published hashes for files whose local account/path strings were anonymized. `provenance/technical_revision.json` records the subsequent portability fixes, including the baseline and current hashes; historical execution hashes are retained. The inference and numerical calculation functions were not changed by these release fixes.
 
-For publication, local user names, LRZ account and project identifiers, and absolute local paths were replaced by placeholders (`<project-root>`, `<lrz-user>`, `<lrz-project>`, `<local-user>`, `<local-attachment>`). `provenance/redactions.json` lists every affected file with its executed and published SHA-256. These replacements touch only paths in comments, documentation, defaults of Slurm scripts and provenance strings. Directory names of editorial revision logs were shortened in `finalize_thesis_tables.py` and in the manifest. The table check above runs on the redacted files.
+`Paper/reproducibility_manifest.json` describes the original thesis project and its historical paths. Some referenced editorial files and PDF hashes belong to that archive and are not release inputs.
 
-The manuscript-delivery validator `validate_phase4_delivery.py` is omitted because it checks the thesis PDF and contains personal data. It is not part of the experiments.
+Table regeneration runs, in order: `build_phase4_thesis_tables.py`, `restructure_rq1_presentation.py`, `build_strengthening_tables.py`, `build_phase7_robustness_assets.py`, then `finalize_thesis_tables.py`. The last stage applies recorded structural and caption revisions plus the two static tables. Use the wrapper so that the generators cannot overwrite the submitted captions. Future caption edits must also be entered in `analysis/scripts/thesis_table_text_revisions.json` and pass `./reproduce_tables.sh`.
 
 ## Reference
 

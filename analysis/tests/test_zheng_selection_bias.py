@@ -25,7 +25,7 @@ class ToyModel:
         return SimpleNamespace(logits=logits, loss=loss)
 
 @pytest.fixture(scope='module')
-def original():
+def original(reference_data):
     return load_original()
 
 def test_original_conditions_are_not_only_cyclic():

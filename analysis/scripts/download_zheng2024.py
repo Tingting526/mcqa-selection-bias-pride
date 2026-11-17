@@ -15,6 +15,7 @@ import urllib.request
 from _bootstrap import PROJECT_ROOT
 
 COMMIT = '2ae2f40c77006f7a00a4675bdfb30151c2406691'
+ARCHIVE_SHA256 = 'cc097f1a1ffd9b4435c222fe2cff56b45eed2b9bf9a52947b5398162b22ba810'
 URL = f'https://codeload.github.com/chujiezheng/LLM-MCQ-Bias/tar.gz/{COMMIT}'
 ROOT = PROJECT_ROOT / 'data/reference/zheng2024'
 
@@ -48,7 +49,12 @@ def main():
     archive = ROOT / 'source.tar.gz'
     if not archive.exists():
         with urllib.request.urlopen(URL, timeout=120) as response:
-            unchanged_or_write(archive, response.read())
+            content = response.read()
+            if sha(content) != ARCHIVE_SHA256:
+                raise ValueError('Downloaded reference archive checksum differs')
+            unchanged_or_write(archive, content)
+    if sha(archive.read_bytes()) != ARCHIVE_SHA256:
+        raise ValueError('Cached reference archive checksum differs')
     with tarfile.open(fileobj=io.BytesIO(archive.read_bytes())) as bundle:
         for member in bundle.getmembers():
             parts = Path(member.name).parts[1:]

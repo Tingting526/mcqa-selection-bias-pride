@@ -16,12 +16,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FIGURE_OUTPUT = HERE
 os.environ.setdefault('MPLCONFIGDIR', str(ROOT / 'tmp/chapter5_mplcache'))
-try:
-    import matplotlib
-except ImportError:
-    import sys
-    sys.path.insert(0, str(ROOT / 'tmp/phase3b_plotdeps'))
-    import matplotlib
+import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch

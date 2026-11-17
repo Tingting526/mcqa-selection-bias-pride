@@ -24,6 +24,7 @@ dependencies = [
 [project.optional-dependencies]
 reference = ["sentencepiece>=0.2,<1"]
 dev = ["pytest>=8.2,<10"]
+figures = ["matplotlib>=3.8,<4"]
 notebooks = [
   "matplotlib>=3.8,<4",
   "ipykernel>=6.29,<8",
